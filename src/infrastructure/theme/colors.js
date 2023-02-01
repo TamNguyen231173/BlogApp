@@ -1,6 +1,7 @@
 export const colors = {
 	ui: {
 		primary: "#1877F2",
+		secondary: "#4E4B66",
 		disabled: "#EEF1F4",
 		error: "#ED2E7E",
 		success: "#00BA88",
@@ -14,6 +15,7 @@ export const colors = {
 	},
 	text: {
 		primary: "#4E4B66",
+		white: "#FFFFFF",
 		title_active: "#050505",
 		button_text: "#667080",
 		placeholder: "#A0A3BD",

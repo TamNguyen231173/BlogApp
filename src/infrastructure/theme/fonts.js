@@ -1,6 +1,7 @@
 export const fonts = {
 	body: "Poppins_400Regular",
-	heading: "Poppins_700Regular",
+	heading: "Poppins_700Bold",
+	caption: "Poppins_600SemiBold",
 	monospace: "Poppins_400Regular",
 };
 
@@ -11,6 +12,7 @@ export const fontWeights = {
 };
 
 export const fontSizes = {
+	small: "12px",
 	caption: "14px",
 	button: "16px",
 	body: "16px",
