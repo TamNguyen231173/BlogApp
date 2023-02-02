@@ -11,6 +11,7 @@ import { ButtonPrimary } from "../../../components/utility/button.component";
 import { ButtonDisabled } from "../../../components/utility/button-disabled.component";
 import fb from "../../../../assets/fb";
 import gg from "../../../../assets/gg";
+import { TextInputView } from "../../../components/utility/text-input.component";
 
 const ContainerView = styled.View`
 	flex: 1;
@@ -33,15 +34,6 @@ const CheckboxContainer = styled.View`
 const CheckboxView = styled(Checkbox)`
 	width: 20px;
 	height: 20px;
-`;
-
-const TextInputView = styled(TextInput).attrs({
-	mode: "outlined",
-	outlineColor: "#4E4B66",
-	activeOutlineColor: "#1877F2",
-})`
-	margin-top: ${(props) => props.theme.space[0]};
-	background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
 const ForgotPasswordText = styled.Text`

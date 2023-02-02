@@ -4,31 +4,15 @@ import styled from "styled-components/native";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
-const NewsCard = styled(Card)`
-	background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const NewsCardCover = styled(Card.Cover)`
-	background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const Row = styled.View`
-	flex-direction: row;
-	align-items: center;
-`;
-
-const ChannelContainer = styled.View`
-	flex-direction: row;
-`;
-
-const ImageView = styled.Image`
-	width: 20px;
-	height: 20px;
-	border-radius: 10px;
-`;
-
-const TimeContainer = styled.View``;
+import {
+	NewsCard,
+	NewsCardCover,
+	Row,
+	BodyContainer,
+	ChannelContainer,
+	ImageView,
+	TimeContainer,
+} from "./newsCard.style";
 
 export const NewsTrending = (news) => {
 	const {
@@ -46,18 +30,34 @@ export const NewsTrending = (news) => {
 	} = news;
 
 	return (
-		<NewsCard>
+		<NewsCard mode="none">
 			<NewsCardCover source={{ uri: urlToImage[0] }} />
-			<Text variant="caption">{author}</Text>
-			<Text variant="title">{title}</Text>
-			<Row>
-				<ChannelContainer>
-					<ImageView source={{ uri: channelLogo }} />
-					<Spacer position="left" size="small" />
-					<Text variant="smallText">{name}</Text>
-				</ChannelContainer>
-				<TimeContainer></TimeContainer>
-			</Row>
+			<BodyContainer>
+				<Spacer position="top" size="small">
+					<Text variant="timeText">{author}</Text>
+				</Spacer>
+				<Spacer position="top" size="small">
+					<Text variant="title">{title}</Text>
+				</Spacer>
+				<Spacer position="top" size="small">
+					<Row>
+						<Row>
+							<ChannelContainer>
+								<ImageView source={{ uri: channelLogo }} />
+								<Spacer position="left" size="tiny" />
+								<Text variant="smallText">{name}</Text>
+							</ChannelContainer>
+							<Spacer position="left" size="medium" />
+							<TimeContainer>
+								<Ionicons name="time-outline" size={12} />
+								<Spacer position="left" size="tiny" />
+								<Text variant="timeText">{publishedAt}</Text>
+							</TimeContainer>
+						</Row>
+						<Ionicons name="reorder-three-outline" size={24} />
+					</Row>
+				</Spacer>
+			</BodyContainer>
 		</NewsCard>
 	);
 };

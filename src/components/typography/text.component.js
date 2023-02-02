@@ -66,8 +66,16 @@ const buttonDisabledText = (theme) => `
 
 const smallText = (theme) => `
     font-family: ${theme.fonts.caption};
-    color: ${theme.colors.text.button_text};
+    color: ${theme.colors.text.primary};
     font-size: ${theme.fontSizes.small};
+`;
+
+const timeText = (theme) => `
+    font-family: ${theme.fonts.body};
+    color: ${theme.colors.text.primary};
+    font-size: ${theme.fontSizes.small};
+    font-weight: ${theme.fontSizes.regular};
+    line-height: 16px;
 `;
 
 const variants = {
@@ -81,6 +89,7 @@ const variants = {
 	buttonText,
 	buttonDisabledText,
 	smallText,
+	timeText,
 };
 
 export const Text = styled.Text`

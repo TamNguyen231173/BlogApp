@@ -1,6 +1,7 @@
 import styled, { useTheme } from "styled-components/native";
 
 const sizeVarient = {
+	tiny: 1,
 	small: 2,
 	medium: 3,
 	large: 4,

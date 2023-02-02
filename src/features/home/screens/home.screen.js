@@ -7,6 +7,9 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Text } from "../../../components/typography/text.component";
 import { NewsTrending } from "../components/newsTrending.component";
+import { NewsCategory } from "../components/newsCategory.component";
+import { ScrollView } from "react-native";
+import { SafeArea } from "../../../components/utility/safe-area.component";
 
 const Container = styled.View`
 	flex: 1;
@@ -14,12 +17,7 @@ const Container = styled.View`
 	background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
-const NotificationContainer = styled.View`
-	padding: ${(props) => props.theme.space[1]}
-		${(props) => props.theme.space[2]};
-	boder-radius: ${(props) => props.theme.radius[0]};
-	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-`;
+const NotificationContainer = styled.View``;
 
 const SearchbarView = styled(Searchbar)`
 	border-radius: ${(props) => props.theme.radius[0]};
@@ -35,30 +33,39 @@ const Row = styled.View`
 
 export const HomeScreen = () => {
 	return (
-		<Container>
-			<Row>
-				<SvgXml width={101} height={32} xml={logo} />
-				<NotificationContainer>
-					<Ionicons
-						name="notifications-sharp"
-						size={28}
-						color="#fff"
-					/>
-				</NotificationContainer>
-			</Row>
-			<Spacer position="top" size="large">
-				<SearchbarView
-					placeholder="Search"
-					placeholderTextColor="#A0A3BD"
-				/>
-			</Spacer>
-			<Spacer position="top" size="large">
+		<SafeArea>
+			<Container>
 				<Row>
-					<Text variant="label">Trending</Text>
-					<Text variant="caption">See All</Text>
+					<SvgXml width={101} height={32} xml={logo} />
+					<NotificationContainer>
+						<Ionicons name="notifications-outline" size={18} />
+					</NotificationContainer>
 				</Row>
-			</Spacer>
-			<NewsTrending />
-		</Container>
+				<Spacer position="top" size="large">
+					<SearchbarView
+						placeholder="Search"
+						placeholderTextColor="#A0A3BD"
+					/>
+				</Spacer>
+				<Spacer position="top" size="large">
+					<Row>
+						<Text variant="label">Trending</Text>
+						<Text variant="caption">See all</Text>
+					</Row>
+				</Spacer>
+				<Spacer position="top" size="medium">
+					<NewsTrending />
+				</Spacer>
+				<Spacer position="top" size="large">
+					<Row>
+						<Text variant="label">Latest</Text>
+						<Text variant="caption">See all</Text>
+					</Row>
+				</Spacer>
+				<ScrollView>
+					<NewsCategory />
+				</ScrollView>
+			</Container>
+		</SafeArea>
 	);
 };

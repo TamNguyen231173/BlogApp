@@ -16,6 +16,7 @@ export const colors = {
 	text: {
 		primary: "#4E4B66",
 		white: "#FFFFFF",
+		black: "#000000",
 		title_active: "#050505",
 		button_text: "#667080",
 		placeholder: "#A0A3BD",
