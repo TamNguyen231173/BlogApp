@@ -24,6 +24,7 @@ const error = (theme) => `
 
 const caption = (theme) => `
     font-size: ${theme.fontSizes.caption};
+    color: ${theme.colors.text.primary};
     font-weight: ${theme.fontWeights.medium};
 `;
 
@@ -40,7 +41,6 @@ const title = (theme) => `
 `;
 
 const loginCaption = (theme) => `
-    font-family: ${theme.fonts.body};
     font-size: 20px;
     width: 60%;
     line-height: 30px;
@@ -71,7 +71,6 @@ const smallText = (theme) => `
 `;
 
 const timeText = (theme) => `
-    font-family: ${theme.fonts.body};
     color: ${theme.colors.text.primary};
     font-size: ${theme.fontSizes.small};
     font-weight: ${theme.fontSizes.regular};

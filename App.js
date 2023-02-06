@@ -16,6 +16,7 @@ import { ProfileScreen } from "./src/features/profile/screens/profile.screen";
 import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { LoginScreen } from "./src/features/login/screens/login.screen";
+import { NewsContextProvider } from "./src/services/news/news.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -57,24 +58,31 @@ export default function App() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				{/* <LoginScreen /> */}
-				<NavigationContainer>
-					<Tab.Navigator
-						screenOptions={createScreenOptions}
-						tabBarOptions={{
-							activeTintColor: "#1877F2",
-							inactiveTintColor: "gray",
-						}}
-					>
-						<Tab.Screen name="Home" component={HomeScreen} />
-						<Tab.Screen name="Explore" component={ExploreScreen} />
-						<Tab.Screen
-							name="Bookmark"
-							component={BookmarkScreen}
-						/>
-						<Tab.Screen name="Profile" component={ProfileScreen} />
-					</Tab.Navigator>
-				</NavigationContainer>
+				<NewsContextProvider>
+					<NavigationContainer>
+						<Tab.Navigator
+							screenOptions={createScreenOptions}
+							tabBarOptions={{
+								activeTintColor: "#1877F2",
+								inactiveTintColor: "gray",
+							}}
+						>
+							<Tab.Screen name="Home" component={HomeScreen} />
+							<Tab.Screen
+								name="Explore"
+								component={ExploreScreen}
+							/>
+							<Tab.Screen
+								name="Bookmark"
+								component={BookmarkScreen}
+							/>
+							<Tab.Screen
+								name="Profile"
+								component={ProfileScreen}
+							/>
+						</Tab.Navigator>
+					</NavigationContainer>
+				</NewsContextProvider>
 			</ThemeProvider>
 			<ExpoStatusBar style="auto" />
 		</>

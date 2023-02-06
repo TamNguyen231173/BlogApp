@@ -12,16 +12,16 @@ import {
 	ImageView,
 	TimeContainer,
 } from "./newsCard.style";
+import { Moment } from "../../../components/utility/moment.component";
 
-export const NewsCategory = (news) => {
+export const NewsCategory = ({ news = {} }) => {
 	const {
-		name = "News Name",
+		source = { name: "News Name" },
 		icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-		urlToImage = [
-			"https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/L2YBWTMIHRGDLIJUR74ZUFNFII.jpg&w=1440",
-		],
+		urlToImage = "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/L2YBWTMIHRGDLIJUR74ZUFNFII.jpg&w=1440",
+
 		url = "",
-		publishedAt = "2023-01-30T11:02:00Z",
+		publishedAt = "2010-11-12T13:14:15Z",
 		title = "News Title",
 		content = "News Content",
 		author = "News Author",
@@ -33,7 +33,7 @@ export const NewsCategory = (news) => {
 			<NewsCard mode="none">
 				<Row>
 					<NewsCardCover
-						source={{ uri: urlToImage[0] }}
+						source={{ uri: urlToImage }}
 						style={{ width: 96, height: 100 }}
 					/>
 					<BodyContainer>
@@ -57,7 +57,9 @@ export const NewsCategory = (news) => {
 											source={{ uri: channelLogo }}
 										/>
 										<Spacer position="left" size="tiny" />
-										<Text variant="smallText">{name}</Text>
+										<Text variant="smallText">
+											{source.name}
+										</Text>
 									</ChannelContainer>
 									<Spacer position="left" size="medium" />
 									<TimeContainer>
@@ -67,7 +69,7 @@ export const NewsCategory = (news) => {
 										/>
 										<Spacer position="left" size="tiny" />
 										<Text variant="timeText">
-											{publishedAt}
+											<Moment time={publishedAt} />
 										</Text>
 									</TimeContainer>
 								</Row>

@@ -13,6 +13,7 @@ import {
 	ImageView,
 	TimeContainer,
 } from "./newsCard.style";
+import { Moment } from "../../../components/utility/moment.component";
 
 export const NewsTrending = (news) => {
 	const {
@@ -51,7 +52,9 @@ export const NewsTrending = (news) => {
 							<TimeContainer>
 								<Ionicons name="time-outline" size={12} />
 								<Spacer position="left" size="tiny" />
-								<Text variant="timeText">{publishedAt}</Text>
+								<Text variant="timeText">
+									<Moment time={publishedAt} />
+								</Text>
 							</TimeContainer>
 						</Row>
 						<Ionicons name="reorder-three-outline" size={24} />
