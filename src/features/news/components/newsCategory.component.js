@@ -13,6 +13,7 @@ import {
 	TimeContainer,
 } from "./newsCard.style";
 import { Moment } from "../../../components/utility/moment.component";
+import { NavigateButton } from "../../../components/utility/navigate-button.component";
 
 export const NewsCategory = ({ news = {} }) => {
 	const {
@@ -39,15 +40,20 @@ export const NewsCategory = ({ news = {} }) => {
 					<BodyContainer>
 						<Text variant="timeText">{author}</Text>
 						<Spacer position="top" size="small">
-							<View style={{ width: 260 }}>
-								<Text
-									numberOfLines={2}
-									ellipsizeMode="tail"
-									variant="title"
-								>
-									{title}
-								</Text>
-							</View>
+							<NavigateButton
+								screenName={"DetailNews"}
+								news={news}
+							>
+								<View style={{ width: 260 }}>
+									<Text
+										numberOfLines={2}
+										ellipsizeMode="tail"
+										variant="title"
+									>
+										{title}
+									</Text>
+								</View>
+							</NavigateButton>
 						</Spacer>
 						<Spacer position="top" size="small">
 							<Row>
@@ -74,7 +80,7 @@ export const NewsCategory = ({ news = {} }) => {
 									</TimeContainer>
 								</Row>
 								<Ionicons
-									name="reorder-three-outline"
+									name="ellipsis-horizontal-outline"
 									size={24}
 								/>
 							</Row>

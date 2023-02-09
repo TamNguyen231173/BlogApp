@@ -1,15 +1,12 @@
-import { useContext } from "react";
 import { FlatList } from "react-native";
 import { View } from "react-native";
 import styled from "styled-components/native";
-import { NewsContext } from "../../../services/news/news.context";
-import { NewsCategory } from "./newsCategory.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
+import { NewsTrending } from "./newsTrending.component";
 
 const List = styled(FlatList)``;
 
-export const ListNewsCategory = ({ name }) => {
-	const { isLoading, error, news } = useContext(NewsContext);
+export const ListNewsTrending = ({ news = {} }) => {
 	return (
 		<View style={{ backgroundColor: "#fff" }}>
 			<List
@@ -17,11 +14,11 @@ export const ListNewsCategory = ({ name }) => {
 				renderItem={({ item }) => {
 					return (
 						<Spacer position="bottom" size="large">
-							<NewsCategory news={item} />
+							<NewsTrending key={item.title} news={item} />
 						</Spacer>
 					);
 				}}
-				keyExtractor={(item) => item.title}
+				keyExtractor={(item) => item.id}
 			/>
 		</View>
 	);

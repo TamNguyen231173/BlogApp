@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Searchbar } from "react-native-paper";
 import styled from "styled-components/native";
 import { SvgXml } from "react-native-svg";
 import logo from "../../../../assets/logo";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
-import { NewsTrending } from "../components/newsTrending.component";
+import { NewsTrending } from "../../news/components/newsTrending.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import notify from "../../../../assets/notify";
 import { TabsView } from "../components/tabsView.component";
+import { NewsContext } from "../../../services/news/news.context";
 
 const Container = styled.View`
 	flex: 1;
@@ -50,6 +51,7 @@ const tabs = [
 ];
 
 export const HomeScreen = () => {
+	const { isLoading, error, news } = useContext(NewsContext);
 	return (
 		<SafeArea>
 			<Container>
@@ -72,7 +74,7 @@ export const HomeScreen = () => {
 					</Row>
 				</Spacer>
 				<Spacer position="top" size="medium">
-					<NewsTrending />
+					<NewsTrending news={news[1]} />
 				</Spacer>
 				<Spacer position="top" size="large">
 					<Row>

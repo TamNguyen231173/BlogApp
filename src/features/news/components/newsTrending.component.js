@@ -1,6 +1,4 @@
 import React from "react";
-import { Card } from "react-native-paper";
-import styled from "styled-components/native";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -14,14 +12,13 @@ import {
 	TimeContainer,
 } from "./newsCard.style";
 import { Moment } from "../../../components/utility/moment.component";
+import { NavigateButton } from "../../../components/utility/navigate-button.component";
 
-export const NewsTrending = (news) => {
+export const NewsTrending = ({ news = {} }) => {
 	const {
-		name = "News Name",
+		source = { name: "News Name" },
 		icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-		urlToImage = [
-			"https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/L2YBWTMIHRGDLIJUR74ZUFNFII.jpg&w=1440",
-		],
+		urlToImage = "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/L2YBWTMIHRGDLIJUR74ZUFNFII.jpg&w=1440",
 		url = "",
 		publishedAt = "2023-01-30T11:02:00Z",
 		title = "News Title",
@@ -32,21 +29,27 @@ export const NewsTrending = (news) => {
 
 	return (
 		<NewsCard mode="none">
-			<NewsCardCover source={{ uri: urlToImage[0] }} />
+			<NewsCardCover source={{ uri: urlToImage }} />
 			<BodyContainer>
 				<Spacer position="top" size="small">
 					<Text variant="timeText">{author}</Text>
 				</Spacer>
-				<Spacer position="top" size="small">
-					<Text variant="title">{title}</Text>
-				</Spacer>
+				<NavigateButton screenName={"DetailNews"} news={news}>
+					<Spacer position="top" size="small">
+						<Text variant="title">{title}</Text>
+					</Spacer>
+				</NavigateButton>
 				<Spacer position="top" size="small">
 					<Row>
 						<Row>
 							<ChannelContainer>
-								<ImageView source={{ uri: channelLogo }} />
+								<ImageView
+									source={{
+										uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX_9R6Zkf9ZiVGYyGIHS9qB40N6GGYjrCBxKGnSRA&s",
+									}}
+								/>
 								<Spacer position="left" size="tiny" />
-								<Text variant="smallText">{name}</Text>
+								<Text variant="smallText">{source.name}</Text>
 							</ChannelContainer>
 							<Spacer position="left" size="medium" />
 							<TimeContainer>
@@ -57,7 +60,10 @@ export const NewsTrending = (news) => {
 								</Text>
 							</TimeContainer>
 						</Row>
-						<Ionicons name="reorder-three-outline" size={24} />
+						<Ionicons
+							name="ellipsis-horizontal-outline"
+							size={24}
+						/>
 					</Row>
 				</Spacer>
 			</BodyContainer>

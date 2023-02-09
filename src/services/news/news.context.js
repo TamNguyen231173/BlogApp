@@ -24,7 +24,7 @@ export const NewsContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		retrieveNews();
-	}, [news]);
+	}, []);
 
 	return (
 		<NewsContext.Provider

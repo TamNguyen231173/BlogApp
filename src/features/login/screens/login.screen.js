@@ -16,6 +16,7 @@ import { TextInputView } from "../../../components/utility/text-input.component"
 const ContainerView = styled.View`
 	flex: 1;
 	padding: ${(props) => props.theme.space[4]};
+	background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
 const InputContainer = styled.View``;
@@ -46,7 +47,7 @@ const Col2 = styled.View`
 	width: 45%;
 `;
 
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }) => {
 	const [checked, setChecked] = useState(false);
 	const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -102,7 +103,9 @@ export const LoginScreen = () => {
 					</Row>
 				</Spacer>
 				<Spacer position="top" size="large">
-					<ButtonPrimary>
+					<ButtonPrimary
+						onPress={() => navigation.navigate("Profile")}
+					>
 						<Text variant="buttonText">Login</Text>
 					</ButtonPrimary>
 				</Spacer>

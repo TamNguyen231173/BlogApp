@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { ListNewsCategory } from "./renderListNewsCategory.component";
+import { ListNewsCategory } from "../../news/components/listNewsCategory.component";
 import { View } from "react-native";
 
 const Tab = createMaterialTopTabNavigator();
@@ -21,7 +21,7 @@ export const TabsView = ({ tabs }) => {
 						return (
 							<Tab.Screen key={name} name={name}>
 								{(props) => (
-									<ListNewsCategory {...props} name={name} />
+									<ListNewsCategory {...props} tab={name} />
 								)}
 							</Tab.Screen>
 						);
