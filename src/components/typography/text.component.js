@@ -77,25 +77,37 @@ const timeText = (theme) => `
     line-height: 16px;
 `;
 
+const textBodyBlack = (theme) => `
+    font-size: ${theme.fontSizes.body};
+    color: ${theme.colors.text.black};
+`;
+
+const amount = (theme) => `
+    font-family: ${theme.fonts.caption};
+    color: ${theme.colors.text.black};
+`;
+
 const variants = {
-	body,
-	label,
-	caption,
-	error,
-	hint,
-	title,
-	loginCaption,
-	buttonText,
-	buttonDisabledText,
-	smallText,
-	timeText,
+  body,
+  label,
+  caption,
+  error,
+  hint,
+  title,
+  loginCaption,
+  buttonText,
+  buttonDisabledText,
+  smallText,
+  timeText,
+  textBodyBlack,
+  amount,
 };
 
 export const Text = styled.Text`
-	${({ theme }) => defaultTextStyles(theme)}
-	${({ variant, theme }) => variants[variant](theme)}
+  ${({ theme }) => defaultTextStyles(theme)}
+  ${({ variant, theme }) => variants[variant](theme)}
 `;
 
 Text.defaultProps = {
-	variant: "body",
+  variant: "body",
 };

@@ -7,19 +7,19 @@ import { NewsTrending } from "./newsTrending.component";
 const List = styled(FlatList)``;
 
 export const ListNewsTrending = ({ news = {} }) => {
-	return (
-		<View style={{ backgroundColor: "#fff" }}>
-			<List
-				data={news}
-				renderItem={({ item }) => {
-					return (
-						<Spacer position="bottom" size="large">
-							<NewsTrending key={item.title} news={item} />
-						</Spacer>
-					);
-				}}
-				keyExtractor={(item) => item.id}
-			/>
-		</View>
-	);
+  return (
+    <View style={{ backgroundColor: "#fff" }}>
+      <List
+        data={news}
+        renderItem={({ item }) => {
+          return (
+            <Spacer position="bottom" size="large_x">
+              <NewsTrending key={item.title} news={item} />
+            </Spacer>
+          );
+        }}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
+  );
 };

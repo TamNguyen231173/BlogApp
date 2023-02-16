@@ -1,5 +1,6 @@
 import { SvgXml } from "react-native-svg";
 import stlyed from "styled-components/native";
+import { Text } from "../../../components/typography/text.component";
 
 export const Container = stlyed.View`
 	flex: 1;
@@ -12,7 +13,7 @@ align-items: center;
 	padding: ${(props) => props.theme.space[4]};
 `;
 
-export const Title = stlyed.Text`
+export const Title = stlyed(Text)`
 	font-size: ${(props) => props.theme.fontSizes.body};
 	font-family: ${(props) => props.theme.fonts.caption};
 	color: ${(props) => props.theme.colors.text.black};
