@@ -12,9 +12,11 @@ import {
   Container,
   NotificationContainer,
   SearchbarView,
+  SearchContainer,
   Row,
 } from "../components/home.style";
 import { NavigateButton } from "../../../components/utility/navigate-button.component";
+import IonIcons from "react-native-vector-icons/Ionicons";
 
 export const tabs = [
   "all",
@@ -27,19 +29,28 @@ export const tabs = [
   "technology",
 ];
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ navigation }) => {
   const { isLoading, error, news } = useContext(NewsContext);
   return (
     <SafeArea>
       <Container>
         <Row>
           <SvgXml width={101} height={32} xml={logo} />
-          <NotificationContainer>
+          <NotificationContainer
+            onPress={() => navigation.navigate("NotificationScreen")}
+          >
             <SvgXml width={50} height={50} xml={notify} />
           </NotificationContainer>
         </Row>
         <Spacer position="top" size="large">
-          <SearchbarView placeholder="Search" placeholderTextColor="#A0A3BD" />
+          <SearchContainer>
+            <SearchbarView
+              elevation="0"
+              placeholder="Search"
+              placeholderTextColor="#A0A3BD"
+            />
+            <IonIcons name="options-outline" size={20} />
+          </SearchContainer>
         </Spacer>
         <Spacer position="top" size="large">
           <Row>

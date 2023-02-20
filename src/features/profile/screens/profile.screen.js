@@ -19,17 +19,20 @@ import {
 } from "../components/profile.style";
 import { SvgXml } from "react-native-svg";
 import add from "../../../../assets/add";
+import { Pressable } from "react-native";
 
 const tabs = ["news", "recent"];
 
-export const ProfileScreen = () => {
+export const ProfileScreen = ({ navigation }) => {
   return (
     <SafeArea>
       <Container>
         <Header>
           <View></View>
           <HeaderText variant="textBodyBlack">Profile</HeaderText>
-          <SvgContainer xml={settings} width={19} height={22} />
+          <Pressable onPress={() => navigation.navigate("SettingScreen")}>
+            <SvgContainer xml={settings} width={19} height={22} />
+          </Pressable>
         </Header>
         <Row>
           <Avatar
@@ -60,7 +63,7 @@ export const ProfileScreen = () => {
         <Spacer position="top" size="medium">
           <Row>
             <Col2>
-              <ButtonPrimary>
+              <ButtonPrimary onPress={() => navigation.navigate("EditProfile")}>
                 <Text variant="buttonText">Edit profile</Text>
               </ButtonPrimary>
             </Col2>
@@ -76,7 +79,7 @@ export const ProfileScreen = () => {
             <TabsView tabs={tabs} />
           </Row>
         </Spacer>
-        <AddButton>
+        <AddButton onPress={() => navigation.navigate("CreateNews")}>
           <SvgXml xml={add} width={24} height={24} />
         </AddButton>
       </Container>

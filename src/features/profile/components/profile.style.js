@@ -5,8 +5,8 @@ import { ButtonPrimary } from "../../../components/utility/button-primary.compon
 
 export const Container = styled.View`
   flex: 1;
-  padding: ${(props) => props.theme.space[4]};
   position: relative;
+  padding: ${(props) => props.theme.space[3]};
   background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 

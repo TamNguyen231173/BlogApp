@@ -20,6 +20,7 @@ import {
   CheckboxContainer,
   CheckboxView,
   Col2,
+  Footer,
 } from "../component/login.style";
 
 export const RegisterScreen = ({ navigation }) => {
@@ -36,7 +37,7 @@ export const RegisterScreen = ({ navigation }) => {
     setPassword(e.target.value);
   };
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
       const response = await AxiosIntance().post("/auth/login", {
         email: username,
@@ -129,16 +130,18 @@ export const RegisterScreen = ({ navigation }) => {
           </Row>
         </Spacer>
         <Spacer position="top" size="large">
-          <Row>
+          <Footer>
             <Text variant="caption" style={{ textAlign: "center" }}>
               don't have an account ?
             </Text>
             <Pressable onPress={() => navigation.navigate("Login")}>
-              <Text variant="caption" style={{ color: "#1877F2" }}>
-                Login
-              </Text>
+              <Spacer position="left" size="small">
+                <Text variant="caption" style={{ color: "#1877F2" }}>
+                  Login
+                </Text>
+              </Spacer>
             </Pressable>
-          </Row>
+          </Footer>
         </Spacer>
       </ContainerView>
     </SafeArea>

@@ -55,6 +55,7 @@ const buttonText = (theme) => `
     font-weight: ${theme.fontWeights.medium};
     line-height: 24px;
     letter-spacing: 0.12px;
+    letter-spacing: 1px;
 `;
 
 const buttonDisabledText = (theme) => `
@@ -87,6 +88,13 @@ const amount = (theme) => `
     color: ${theme.colors.text.black};
 `;
 
+const TitleTab = (theme) => `
+    font-family: ${theme.fonts.heading};
+    font-size: ${theme.fontSizes.title};
+    font-weight: ${theme.fontWeights.bold};
+    color: ${theme.colors.text.black};
+`;
+
 const variants = {
   body,
   label,
@@ -101,6 +109,7 @@ const variants = {
   timeText,
   textBodyBlack,
   amount,
+  TitleTab,
 };
 
 export const Text = styled.Text`

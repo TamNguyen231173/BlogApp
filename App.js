@@ -11,13 +11,21 @@ import { ThemeProvider } from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { NewsContextProvider } from "./src/services/news/news.context";
 import { LoginScreen } from "./src/features/auth/screens/login.screen";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from "@react-navigation/stack";
 import { DetailNews } from "./src/features/news/screens/detail.screen";
 import { MainScreen } from "./src/features/home/screens/main.sreen";
 import { AddProfileScreen } from "./src/features/auth/screens/addProfile.screen";
 import { NewsTrending } from "./src/features/news/screens/newsTrending.screen";
 import { NewsCategoryScreen } from "./src/features/news/screens/newsCategory.screen";
 import { RegisterScreen } from "./src/features/auth/screens/register.screen";
+import { NotificationScreen } from "./src/features/home/screens/notification.screen";
+import { SettingScreen } from "./src/features/setting/screens/setting.screen";
+import { CommentScreen } from "./src/features/news/screens/comment.screen";
+import { CreateNewsScreen } from "./src/features/news/screens/create-news.screen";
+import { EditProfileScreen } from "./src/features/profile/screens/editProfile.screen";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +46,8 @@ export default function App() {
     return null;
   }
 
+  console.disableYellowBox = true;
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -56,8 +66,24 @@ export default function App() {
               <Stack.Screen name="DetailNews" component={DetailNews} />
               <Stack.Screen name="NewsTrending" component={NewsTrending} />
               <Stack.Screen
+                name="NotificationScreen"
+                component={NotificationScreen}
+              />
+              <Stack.Screen
                 name="NewsCategory"
                 component={NewsCategoryScreen}
+              />
+              <Stack.Screen name="SettingScreen" component={SettingScreen} />
+              <Stack.Screen
+                options={{ ...TransitionPresets.ModalPresentationIOS }}
+                name="CommentScreen"
+                component={CommentScreen}
+              />
+              <Stack.Screen name="CreateNews" component={CreateNewsScreen} />
+              <Stack.Screen
+                options={{ ...TransitionPresets.ModalPresentationIOS }}
+                name="EditProfile"
+                component={EditProfileScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>

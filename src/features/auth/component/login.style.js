@@ -34,3 +34,9 @@ export const ForgotPasswordText = styled.Text`
 export const Col2 = styled.View`
   width: 45%;
 `;
+
+export const Footer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;

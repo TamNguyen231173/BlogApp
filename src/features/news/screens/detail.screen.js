@@ -17,7 +17,7 @@ import {
   Footer,
 } from "../components/detail.style";
 
-export const DetailNews = ({ route }) => {
+export const DetailNews = ({ route, navigation }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -100,11 +100,13 @@ export const DetailNews = ({ route }) => {
               <Text variant="caption">24.5k</Text>
             </Row>
             <Spacer position="left" size="large" />
-            <Row>
-              <IonIcons name="chatbox-ellipses-outline" size={20} />
-              <Spacer position="left" size="tiny" />
-              <Text variant="caption">1k</Text>
-            </Row>
+            <Pressable onPress={() => navigation.navigate("CommentScreen")}>
+              <Row>
+                <IonIcons name="chatbox-ellipses-outline" size={20} />
+                <Spacer position="left" size="tiny" />
+                <Text variant="caption">1k</Text>
+              </Row>
+            </Pressable>
           </LikeCommentContainer>
           <Pressable onPress={() => setBookmarked(!bookmarked)}>
             <IonIcons

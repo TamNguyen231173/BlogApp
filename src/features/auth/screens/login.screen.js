@@ -19,6 +19,7 @@ import {
   CheckboxView,
   ForgotPasswordText,
   Col2,
+  Footer,
 } from "../component/login.style";
 
 export const LoginScreen = ({ navigation }) => {
@@ -130,16 +131,18 @@ export const LoginScreen = ({ navigation }) => {
           </Row>
         </Spacer>
         <Spacer position="top" size="large">
-          <Row>
+          <Footer>
             <Text variant="caption" style={{ textAlign: "center" }}>
               don't have an account ?
             </Text>
-            <Pressable onPress={() => navigation.navigate("Register")}>
-              <Text variant="caption" style={{ color: "#1877F2" }}>
-                Sign up
-              </Text>
-            </Pressable>
-          </Row>
+            <Spacer position="left" size="small">
+              <Pressable onPress={() => navigation.navigate("Register")}>
+                <Text variant="caption" style={{ color: "#1877F2" }}>
+                  Sign up
+                </Text>
+              </Pressable>
+            </Spacer>
+          </Footer>
         </Spacer>
       </ContainerView>
     </SafeArea>
