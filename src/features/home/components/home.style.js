@@ -25,9 +25,4 @@ export const Row = styled.View`
   justify-content: space-between;
 `;
 
-export const SearchContainer = styled.View`
-  border-radius: ${(props) => props.theme.radius[0]};
-  border: 1px solid ${(props) => props.theme.colors.ui.secondary};
-  flex-direction: row;
-  align-items: center;
-`;
+export const SearchContainer = styled.View``;

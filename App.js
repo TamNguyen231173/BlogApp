@@ -26,6 +26,8 @@ import { SettingScreen } from "./src/features/setting/screens/setting.screen";
 import { CommentScreen } from "./src/features/news/screens/comment.screen";
 import { CreateNewsScreen } from "./src/features/news/screens/create-news.screen";
 import { EditProfileScreen } from "./src/features/profile/screens/editProfile.screen";
+import { SearchFilterScreen } from "./src/features/home/screens/searchFilter.screen";
+import { ForgotPasswordScreen } from "./src/features/auth/screens/forgotPassword.screen";
 
 const Stack = createStackNavigator();
 
@@ -51,7 +53,7 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NewsContextProvider>
+        <NewsContextProvider >
           <NavigationContainer>
             <Stack.Navigator
               initialRouteName="Login"
@@ -82,8 +84,17 @@ export default function App() {
               <Stack.Screen name="CreateNews" component={CreateNewsScreen} />
               <Stack.Screen
                 options={{ ...TransitionPresets.ModalPresentationIOS }}
+                name="SearchFilter"
+                component={SearchFilterScreen}
+              />
+              <Stack.Screen
+                options={{ ...TransitionPresets.ModalPresentationIOS }}
                 name="EditProfile"
                 component={EditProfileScreen}
+              />
+              <Stack.Screen
+                name="ForgotPassword"
+                component={ForgotPasswordScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>

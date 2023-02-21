@@ -18,7 +18,7 @@ import {
   LabelText,
   Footer,
   ButtonContainer,
-} from "../component/addProfile.style";
+} from "../components/addProfile.style";
 
 export const AddProfileScreen = ({ navigation }) => {
   return (

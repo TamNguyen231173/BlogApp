@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { SvgXml } from "react-native-svg";
 import logo from "../../../../assets/logo";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -11,12 +11,12 @@ import { NewsContext } from "../../../services/news/news.context";
 import {
   Container,
   NotificationContainer,
-  SearchbarView,
-  SearchContainer,
   Row,
 } from "../components/home.style";
 import { NavigateButton } from "../../../components/utility/navigate-button.component";
-import IonIcons from "react-native-vector-icons/Ionicons";
+import List from "../components/list.component";
+import SearchBar from "../components/searchBar.component";
+import { ActivityIndicator } from "react-native";
 
 export const tabs = [
   "all",
@@ -31,6 +31,9 @@ export const tabs = [
 
 export const HomeScreen = ({ navigation }) => {
   const { isLoading, error, news } = useContext(NewsContext);
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const [clicked, setClicked] = useState(false);
+
   return (
     <SafeArea>
       <Container>
@@ -43,14 +46,22 @@ export const HomeScreen = ({ navigation }) => {
           </NotificationContainer>
         </Row>
         <Spacer position="top" size="large">
-          <SearchContainer>
-            <SearchbarView
-              elevation="0"
-              placeholder="Search"
-              placeholderTextColor="#A0A3BD"
-            />
-            <IonIcons name="options-outline" size={20} />
-          </SearchContainer>
+          <SearchBar
+            searchPhrase={searchPhrase}
+            setSearchPhrase={setSearchPhrase}
+            clicked={clicked}
+            setClicked={setClicked}
+          />
+          {clicked &&
+            (!news ? (
+              <ActivityIndicator size="large" />
+            ) : (
+              <List
+                searchPhrase={searchPhrase}
+                data={news}
+                setClicked={setClicked}
+              />
+            ))}
         </Spacer>
         <Spacer position="top" size="large">
           <Row>

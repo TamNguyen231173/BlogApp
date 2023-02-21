@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { View } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -6,6 +6,7 @@ import settings from "../../../../assets/settings";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { ButtonPrimary } from "../../../components/utility/button-primary.component";
 import { TabsView } from "../../../components/utility/tabsView.component";
+import { NewsContext } from "../../../services/news/news.context";
 import {
   Container,
   Header,
@@ -24,6 +25,8 @@ import { Pressable } from "react-native";
 const tabs = ["news", "recent"];
 
 export const ProfileScreen = ({ navigation }) => {
+  const { infoUser } = useContext(NewsContext);
+
   return (
     <SafeArea>
       <Container>
@@ -35,9 +38,7 @@ export const ProfileScreen = ({ navigation }) => {
           </Pressable>
         </Header>
         <Row>
-          <Avatar
-            source={{ uri: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" }}
-          />
+          <Avatar source={{ uri: infoUser.avatar }} />
           <Row style={{ width: "65%" }}>
             <FollowContainer>
               <Text variant="amount">2156</Text>
@@ -54,11 +55,8 @@ export const ProfileScreen = ({ navigation }) => {
           </Row>
         </Row>
         <Spacer position="top" size="medium">
-          <Text variant="amount">Wilson Franci</Text>
-          <Text variant="body">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </Text>
+          <Text variant="amount">{infoUser.name}</Text>
+          <Text variant="body">{infoUser.address}</Text>
         </Spacer>
         <Spacer position="top" size="medium">
           <Row>
@@ -68,7 +66,9 @@ export const ProfileScreen = ({ navigation }) => {
               </ButtonPrimary>
             </Col2>
             <Col2>
-              <ButtonPrimary>
+              <ButtonPrimary
+                onPress={() => navigation.navigate("SearchFilter")}
+              >
                 <Text variant="buttonText">Website</Text>
               </ButtonPrimary>
             </Col2>

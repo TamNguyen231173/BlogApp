@@ -21,7 +21,7 @@ import {
   CheckboxView,
   Col2,
   Footer,
-} from "../component/login.style";
+} from "../components/login.style";
 
 export const RegisterScreen = ({ navigation }) => {
   const [checked, setChecked] = useState(false);
@@ -39,7 +39,7 @@ export const RegisterScreen = ({ navigation }) => {
 
   const handleRegister = async () => {
     try {
-      const response = await AxiosIntance().post("/auth/login", {
+      const response = await AxiosIntance().post("/auth/register", {
         email: username,
         password: password,
       });

@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SvgXml } from "react-native-svg";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import hello_text from "../../../../assets/hello_text";
 import { Text } from "../../../components/typography/text.component";
 import { TextInput } from "react-native-paper";
 import { Spacer } from "../../../components/spacer/spacer.component";
-import { Pressable } from "react-native";
+import { Pressable, ToastAndroid } from "react-native";
 import { ButtonPrimary } from "../../../components/utility/button-primary.component";
 import { ButtonDisabled } from "../../../components/utility/button-disabled.component";
 import fb from "../../../../assets/fb";
 import gg from "../../../../assets/gg";
 import { TextInputView } from "../../../components/utility/text-input.component";
+import AxiosInstance from "../../../components/utility/AxiosInstance.component";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   ContainerView,
   InputContainer,
@@ -20,35 +22,42 @@ import {
   ForgotPasswordText,
   Col2,
   Footer,
-} from "../component/login.style";
+} from "../components/login.style";
+import { NewsContext } from "../../../services/news/news.context";
 
 export const LoginScreen = ({ navigation }) => {
   const [checked, setChecked] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { setIsLogin, setInfoUser } = useContext(NewsContext);
 
   const handleOnChangeUsername = (e) => {
-    setUsername(e.target.value);
+    setUsername(e);
   };
 
   const handleOnChangePassword = (e) => {
-    setPassword(e.target.value);
+    setPassword(e);
   };
 
   const handleLogin = async () => {
     try {
-      const response = await AxiosIntance().post("/users/register", {
+      const response = await AxiosInstance().post("/auth/login", {
         email: username,
         password: password,
       });
-      if (response.status === 200) {
-        navigation.navigate("Login");
+      if (response.error == false) {
+        console.log(response.data.token);
+        await AsyncStorage.setItem("token", response.data.token);
+        ToastAndroid.show("Login Success", ToastAndroid.SHORT);
+        setIsLogin(true);
+        setInfoUser(response.data.user);
+        navigation.navigate("Main");
       } else {
-        ToastAndroid.show("Register failed", ToastAndroid.SHORT);
+        ToastAndroid.show("Login failed", ToastAndroid.SHORT);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -91,7 +100,7 @@ export const LoginScreen = ({ navigation }) => {
               />
               <Text variant="caption">Remember me</Text>
             </CheckboxContainer>
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate("ForgotPassword")}>
               <ForgotPasswordText variant="caption">
                 Forgot the Password ?
               </ForgotPasswordText>
@@ -99,7 +108,7 @@ export const LoginScreen = ({ navigation }) => {
           </Row>
         </Spacer>
         <Spacer position="top" size="large">
-          <ButtonPrimary onPress={() => navigation.navigate("AddProfile")}>
+          <ButtonPrimary onPress={handleLogin}>
             <Text variant="buttonText">Login</Text>
           </ButtonPrimary>
         </Spacer>

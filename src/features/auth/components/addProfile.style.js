@@ -50,7 +50,7 @@ export const Footer = stlyed.View`
 	flex: 1;
 	justify-content: flex-end;
 	width: 100%;
-	margin-top: ${(props) => props.theme.space[4]};
+	margin-top: ${(props) => props.theme.space[2]};
 `;
 
 export const ButtonContainer = stlyed.View`
