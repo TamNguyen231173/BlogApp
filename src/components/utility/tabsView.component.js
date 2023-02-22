@@ -29,7 +29,7 @@ export const TabsView = ({ tabs }) => {
     <View
       style={{
         flex: 1,
-        height: 400,
+        height: 600,
       }}
     >
       <Tab.Navigator screenOptions={createScreenOptions}>

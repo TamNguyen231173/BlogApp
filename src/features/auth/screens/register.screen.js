@@ -28,8 +28,13 @@ export const RegisterScreen = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleOnChangeUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handleOnChangeEmail = (e) => {
     setEmail(e.target.value);
   };
 
@@ -64,8 +69,14 @@ export const RegisterScreen = ({ navigation }) => {
             <Text variant="caption" onChangeText={handleOnChangeUsername}>
               Username
             </Text>
-            <TextInputView />
+            <TextInputView value={username} />
           </InputContainer>
+          <Spacer position="top" size="medium">
+            <InputContainer>
+              <Text variant="caption" onChangeText={handleOnChangeEmail}>Email</Text>
+              <TextInputView  value={email} />
+            </InputContainer>
+          </Spacer>
           <Spacer position="top" size="medium">
             <InputContainer>
               <Text variant="caption">Password</Text>

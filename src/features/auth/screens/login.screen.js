@@ -75,7 +75,7 @@ export const LoginScreen = ({ navigation }) => {
             <InputContainer>
               <Text variant="caption">Password</Text>
               <TextInputView
-                secureTextEntry={passwordVisible}
+                secureTextEntry={!passwordVisible}
                 onChangeText={handleOnChangePassword}
                 right={
                   <TextInput.Icon

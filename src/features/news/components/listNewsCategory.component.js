@@ -43,8 +43,8 @@ export const ListNewsCategory = ({ tab }) => {
         data={news}
         renderItem={({ item }) => {
           return (
-            <Spacer position="bottom" size="large">
-              <NewsCategory key={item.title} news={item} />
+            <Spacer key={item.title} position="bottom" size="large">
+              <NewsCategory news={item} />
             </Spacer>
           );
         }}

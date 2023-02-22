@@ -17,6 +17,7 @@ import { NavigateButton } from "../../../components/utility/navigate-button.comp
 import List from "../components/list.component";
 import SearchBar from "../components/searchBar.component";
 import { ActivityIndicator } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export const tabs = [
   "all",

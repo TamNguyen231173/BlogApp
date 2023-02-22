@@ -5,8 +5,6 @@ import { NewsCategory } from "../../news/components/newsCategory.component";
 // the filter
 const List = (props) => {
   const renderItem = ({ item }) => {
-    console.log(item.content);
-
     if (props.searchPhrase === "") {
       return <NewsCategory news={item} />;
     }

@@ -13,8 +13,8 @@ export const ListNewsTrending = ({ news = {} }) => {
         data={news}
         renderItem={({ item }) => {
           return (
-            <Spacer position="bottom" size="large_x">
-              <NewsTrending key={item.title} news={item} />
+            <Spacer key={item.title} position="bottom" size="large_x">
+              <NewsTrending news={item} />
             </Spacer>
           );
         }}
