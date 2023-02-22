@@ -72,7 +72,7 @@ const FormatTextContainer = styled(ToggleButton.Row)`
   border-width: 0px;
 `;
 
-export const CreateNewsScreen = () => {
+export const CreateNewsScreen = ({ navigation }) => {
   const [value, setValue] = React.useState("left");
 
   return (
@@ -80,7 +80,9 @@ export const CreateNewsScreen = () => {
       <KeyboardAvoidingView>
         <ScrollView>
           <Header>
-            <Icon name="arrow-back-outline" />
+            <Pressable onPress={() => navigation.goBack()}>
+              <Icon name="arrow-back-outline" />
+            </Pressable>
             <Text variant="textBodyBlack">Create News</Text>
             <Icon name="ellipsis-vertical-outline" />
           </Header>

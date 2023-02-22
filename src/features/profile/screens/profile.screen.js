@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { View } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -55,7 +55,7 @@ export const ProfileScreen = ({ navigation }) => {
           </Row>
         </Row>
         <Spacer position="top" size="medium">
-          <Text variant="amount">{infoUser.name}</Text>
+          <Text variant="amount">{infoUser.fullname}</Text>
           <Text variant="body">{infoUser.address}</Text>
         </Spacer>
         <Spacer position="top" size="medium">

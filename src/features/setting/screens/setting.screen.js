@@ -6,6 +6,8 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Row } from "../../../components/utility/row.component";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Switch } from "react-native-paper";
+import { getAuth, signOut } from "firebase/auth";
+import { Pressable } from "react-native";
 
 const Block = styled.View``;
 
@@ -33,15 +35,27 @@ const SwitchView = styled(Switch)`
   padding: 0;
 `;
 
-export const SettingScreen = () => {
+export const SettingScreen = ({ navigation }) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (
     <Container>
       <Header>
-        <IconBig name="arrow-back-outline"></IconBig>
+        <Pressable onPress={() => navigation.goBack()}>
+          <IconBig name="arrow-back-outline"></IconBig>
+        </Pressable>
         <Text variant="textBodyBlack">Settings</Text>
         <Block></Block>
       </Header>
@@ -87,13 +101,15 @@ export const SettingScreen = () => {
           </Row>
         </Spacer>
         <Spacer position="bottom" size="large_xxx">
-          <Row>
+          <Pressable onPress={handleLogout}>
             <Row>
-              <IconBig name="log-out-outline"></IconBig>
-              <Spacer position="right" size="tiny" />
-              <Text variant="textBodyBlack">Logout</Text>
+              <Row>
+                <IconBig name="log-out-outline"></IconBig>
+                <Spacer position="right" size="tiny" />
+                <Text variant="textBodyBlack">Logout</Text>
+              </Row>
             </Row>
-          </Row>
+          </Pressable>
         </Spacer>
       </Spacer>
     </Container>

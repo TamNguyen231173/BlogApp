@@ -11,8 +11,7 @@ import { ButtonDisabled } from "../../../components/utility/button-disabled.comp
 import fb from "../../../../assets/fb";
 import gg from "../../../../assets/gg";
 import { TextInputView } from "../../../components/utility/text-input.component";
-// import AxiosIntance from "../../../utils/axios";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
+import firsebase from "../../../services/database/firebase";
 import {
   ContainerView,
   InputContainer,
@@ -26,36 +25,42 @@ import {
 export const RegisterScreen = ({ navigation }) => {
   const [checked, setChecked] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleOnChangeUsername = (e) => {
-    setUsername(e.target.value);
+  const handleOnChangeEmail = (value) => {
+    setEmail(value);
   };
 
-  const handleOnChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleOnChangePassword = (e) => {
-    setPassword(e.target.value);
+  const handleOnChangePassword = (value) => {
+    setPassword(value);
   };
 
   const handleRegister = async () => {
-    try {
-      const response = await AxiosIntance().post("/auth/register", {
-        email: username,
-        password: password,
-      });
-      if (response.status === 200) {
-        await AsyncStorage.setItem("token", response.data.token);
-        navigation.navigate("Profile");
-      } else {
-        ToastAndroid.show("Register failed", ToastAndroid.SHORT);
+    if (!password || !email) {
+      ToastAndroid.show("Please fill all the fields", ToastAndroid.SHORT);
+      return;
+    } else {
+      try {
+        await firsebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            console.log(userCredential);
+            if (userCredential.reponse !== null) {
+              navigation.navigate("AddProfile");
+            }
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            ToastAndroid.show(errorMessage, ToastAndroid.SHORT);
+            console.log("error: ", errorMessage);
+            console.log("error code: ", errorCode);
+          });
+      } catch (error) {
+        console.log(error);
       }
-    } catch (e) {
-      console.log(e);
     }
   };
 
@@ -66,23 +71,16 @@ export const RegisterScreen = ({ navigation }) => {
         <Text variant="loginCaption">Signup to get Started</Text>
         <Spacer position="top" size="large_xx">
           <InputContainer>
-            <Text variant="caption" onChangeText={handleOnChangeUsername}>
-              Username
-            </Text>
-            <TextInputView value={username} />
+            <Text variant="caption">Email</Text>
+            <TextInputView value={email} onChangeText={handleOnChangeEmail} />
           </InputContainer>
-          <Spacer position="top" size="medium">
-            <InputContainer>
-              <Text variant="caption" onChangeText={handleOnChangeEmail}>Email</Text>
-              <TextInputView  value={email} />
-            </InputContainer>
-          </Spacer>
           <Spacer position="top" size="medium">
             <InputContainer>
               <Text variant="caption">Password</Text>
               <TextInputView
+                value={password}
                 onChangeText={handleOnChangePassword}
-                secureTextEntry={passwordVisible}
+                secureTextEntry={!passwordVisible}
                 right={
                   <TextInput.Icon
                     icon={passwordVisible ? "eye" : "eye-off"}

@@ -7,6 +7,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { NewsContext } from "../../../services/news/news.context";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { ListNewsTrending } from "../components/listNewsTrending.component";
+import { Pressable } from "react-native";
 
 const SafeAreaView = styled(SafeArea)`
   background-color: ${(props) => props.theme.colors.bg.primary};
@@ -23,12 +24,14 @@ const Body = styled.View`
   flex: 1;
 `;
 
-export const NewsTrending = () => {
+export const NewsTrending = ({ navigation }) => {
   const { isLoading, error, news } = useContext(NewsContext);
   return (
     <SafeAreaView>
       <Header>
-        <IonsIcon name="arrow-back-outline" size={20} />
+        <Pressable onPress={() => navigation.goBack()}>
+          <IonsIcon name="arrow-back-outline" size={20} />
+        </Pressable>
         <Text variant="label">Trending</Text>
         <IonsIcon name="ellipsis-vertical-outline" size={20} />
       </Header>

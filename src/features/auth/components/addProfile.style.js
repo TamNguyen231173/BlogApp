@@ -19,7 +19,7 @@ export const Title = stlyed(Text)`
 	color: ${(props) => props.theme.colors.text.black};
 `;
 
-export const AddImageContainer = stlyed.View`
+export const AddImageContainer = stlyed.Pressable`
 	position: relative;
 `;
 

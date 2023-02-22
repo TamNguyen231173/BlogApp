@@ -27,6 +27,7 @@ import { CommentScreen } from "./src/features/news/screens/comment.screen";
 import { CreateNewsScreen } from "./src/features/news/screens/create-news.screen";
 import { EditProfileScreen } from "./src/features/profile/screens/editProfile.screen";
 import { ForgotPasswordScreen } from "./src/features/auth/screens/forgotPassword.screen";
+import { EmailViaScreen } from "./src/features/auth/screens/emailVia.screen";
 
 const Stack = createStackNavigator();
 
@@ -90,6 +91,7 @@ export default function App() {
                 name="ForgotPassword"
                 component={ForgotPasswordScreen}
               />
+              <Stack.Screen name="EmailVia" component={EmailViaScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </NewsContextProvider>

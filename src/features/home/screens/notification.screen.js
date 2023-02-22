@@ -7,6 +7,7 @@ import { ItemNotification } from "../components/item-notification.component";
 import { Row } from "../components/home.style";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { ItemNotificationFollow } from "../components/item-notification-follow.component";
+import { Pressable } from "react-native";
 
 const Container = styled(SafeArea)`
   padding: 20px;
@@ -16,11 +17,13 @@ const Icon = styled(IonIcons)`
   font-size: 20px;
 `;
 
-export const NotificationScreen = () => {
+export const NotificationScreen = ({ navigation }) => {
   return (
     <Container>
       <Row>
-        <Icon name="arrow-back-outline" />
+        <Pressable onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back-outline" />
+        </Pressable>
         <Text variant="amount">Notification</Text>
         <Icon name="ellipsis-vertical-outline" />
       </Row>

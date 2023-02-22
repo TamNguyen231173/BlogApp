@@ -5,14 +5,13 @@ import hello_text from "../../../../assets/hello_text";
 import { Text } from "../../../components/typography/text.component";
 import { TextInput } from "react-native-paper";
 import { Spacer } from "../../../components/spacer/spacer.component";
-import { Pressable, ToastAndroid } from "react-native";
+import { Pressable, ToastAndroid, Alert } from "react-native";
 import { ButtonPrimary } from "../../../components/utility/button-primary.component";
 import { ButtonDisabled } from "../../../components/utility/button-disabled.component";
 import fb from "../../../../assets/fb";
 import gg from "../../../../assets/gg";
 import { TextInputView } from "../../../components/utility/text-input.component";
-import AxiosInstance from "../../../components/utility/AxiosInstance.component";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   ContainerView,
   InputContainer,
@@ -24,13 +23,14 @@ import {
   Footer,
 } from "../components/login.style";
 import { NewsContext } from "../../../services/news/news.context";
+import firebase from "firebase/compat";
 
 export const LoginScreen = ({ navigation }) => {
   const [checked, setChecked] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setIsLogin, setInfoUser } = useContext(NewsContext);
+  const { setInfoUser } = useContext(NewsContext);
 
   const handleOnChangeUsername = (e) => {
     setUsername(e);
@@ -40,24 +40,37 @@ export const LoginScreen = ({ navigation }) => {
     setPassword(e);
   };
 
-  const handleLogin = async () => {
-    try {
-      const response = await AxiosInstance().post("/auth/login", {
-        email: username,
-        password: password,
+  const getDataUser = () => {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((documentSnapshot) => {
+        if (documentSnapshot.exists) {
+          setInfoUser(documentSnapshot.data());
+        }
       });
-      if (response.error == false) {
-        console.log(response.data.token);
-        await AsyncStorage.setItem("token", response.data.token);
-        ToastAndroid.show("Login Success", ToastAndroid.SHORT);
-        setIsLogin(true);
-        setInfoUser(response.data.user);
-        navigation.navigate("Main");
-      } else {
-        ToastAndroid.show("Login failed", ToastAndroid.SHORT);
-      }
-    } catch (error) {
-      console.log(error);
+  };
+
+  const handleLogin = () => {
+    if (username === "" && password === "") {
+      Alert.alert("Enter details to signin!");
+    } else {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(username, password)
+        .then((res) => {
+          if (!checked) {
+            setUsername("");
+            setPassword("");
+          }
+          getDataUser();
+          navigation.navigate("Main");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -69,12 +82,16 @@ export const LoginScreen = ({ navigation }) => {
         <Spacer position="top" size="large_xx">
           <InputContainer>
             <Text variant="caption">Username</Text>
-            <TextInputView onChangeText={handleOnChangeUsername} />
+            <TextInputView
+              value={username}
+              onChangeText={handleOnChangeUsername}
+            />
           </InputContainer>
           <Spacer position="top" size="medium">
             <InputContainer>
               <Text variant="caption">Password</Text>
               <TextInputView
+                value={password}
                 secureTextEntry={!passwordVisible}
                 onChangeText={handleOnChangePassword}
                 right={
