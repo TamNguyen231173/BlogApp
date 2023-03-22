@@ -9,25 +9,31 @@ import {
 import { theme } from "./src/infrastructure/theme";
 import { ThemeProvider } from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
-import { NewsContextProvider } from "./src/services/news/news.context";
 import { LoginScreen } from "./src/features/auth/screens/login.screen";
 import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import { DetailNews } from "./src/features/news/screens/detail.screen";
-import { MainScreen } from "./src/features/home/screens/main.sreen";
-import { AddProfileScreen } from "./src/features/auth/screens/addProfile.screen";
-import { NewsTrending } from "./src/features/news/screens/newsTrending.screen";
-import { NewsCategoryScreen } from "./src/features/news/screens/newsCategory.screen";
-import { RegisterScreen } from "./src/features/auth/screens/register.screen";
-import { NotificationScreen } from "./src/features/home/screens/notification.screen";
-import { SettingScreen } from "./src/features/setting/screens/setting.screen";
-import { CommentScreen } from "./src/features/news/screens/comment.screen";
-import { CreateNewsScreen } from "./src/features/news/screens/create-news.screen";
-import { EditProfileScreen } from "./src/features/profile/screens/editProfile.screen";
-import { ForgotPasswordScreen } from "./src/features/auth/screens/forgotPassword.screen";
-import { EmailViaScreen } from "./src/features/auth/screens/emailVia.screen";
+import {
+  HomeScreen,
+  DetailNews,
+  MainScreen,
+  AddProfileScreen,
+  NewsTrending,
+  NewsCategoryScreen,
+  RegisterScreen,
+  NotificationScreen,
+  SettingScreen,
+  CommentScreen,
+  CreateNewsScreen,
+  EditProfileScreen,
+  ForgotPasswordScreen,
+  EmailViaScreen,
+  PhoneViaScreen,
+} from "./src/features";
+
+import { Provider } from "react-redux";
+import { store } from "./src/redux/store";
 
 const Stack = createStackNavigator();
 
@@ -48,12 +54,10 @@ export default function App() {
     return null;
   }
 
-  console.disableYellowBox = true;
-
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <NewsContextProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
           <NavigationContainer>
             <Stack.Navigator
               initialRouteName="Login"
@@ -92,11 +96,12 @@ export default function App() {
                 component={ForgotPasswordScreen}
               />
               <Stack.Screen name="EmailVia" component={EmailViaScreen} />
+              <Stack.Screen name="PhoneVia" component={PhoneViaScreen} />
             </Stack.Navigator>
           </NavigationContainer>
-        </NewsContextProvider>
-      </ThemeProvider>
-      <ExpoStatusBar style="auto" />
+        </ThemeProvider>
+        <ExpoStatusBar style="auto" />
+      </Provider>
     </>
   );
 }

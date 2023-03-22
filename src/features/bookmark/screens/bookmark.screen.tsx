@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Text } from "../../../components/typography/text.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -10,6 +10,7 @@ import IonIcons from "react-native-vector-icons/Ionicons";
 import styled from "styled-components/native";
 import { FlatList } from "react-native";
 import { NewsCategory } from "../../news/components/newsCategory.component";
+import { useGetAllPostsQuery } from "../../../redux/api";
 
 const ListContainer = styled.View`
   background-color: #fff;
@@ -20,35 +21,7 @@ const Container = styled(SafeArea)`
 `;
 
 export const BookmarkScreen = () => {
-  const [news, setNews] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const NewsRequest = async () => {
-    const res = await fetch(
-      `https://newsapi.org/v2/everything?q=all&apiKey=370dae2cccc5458eb0efb2b2b1db3a24`
-    );
-    const json = await res.json();
-    return json.articles;
-  };
-
-  const getNews = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const news = await NewsRequest();
-      setNews(news);
-      setIsLoading(false);
-    } catch (err) {
-      setError(err);
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getNews();
-  }, []);
-
+  const { data: news, isLoading } = useGetAllPostsQuery();
   return (
     <Container>
       <Text variant="TitleTab">Bookmark</Text>

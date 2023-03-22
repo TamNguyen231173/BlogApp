@@ -21,22 +21,22 @@ const Footer = styled.View`
   padding: 24px ${(props) => props.theme.space[3]};
 `;
 
-export const EmailViaScreen = ({navigation}) => {
-  const [email, setEmail] = useState("");
+export const PhoneViaScreen = ({ navigation }) => {
+  const [confirm, setConfirm] = useState(null);
+  const [phone, setPhone] = useState("");
 
-  const passwordReset = (email) => {
-    return firebase.auth().sendPasswordResetEmail(email);
-  };
-
-  const handlePasswordReset = async () => {
+  const signIn = async () => {
     try {
-      await passwordReset(email);
-      console.log("Password reset email sent successfully");
-      navigation.navigate("Login");
+      const confirmation = await auth().signInWithPhoneNumber(phone);
+      setConfirm(confirmation);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
+
+  if (confirm) {
+    
+}
 
   return (
     <SafeArea>
@@ -50,12 +50,12 @@ export const EmailViaScreen = ({navigation}) => {
           with your account.
         </Text>
         <Spacer position="top" size="medium">
-          <Text variant="caption">Email</Text>
-          <TextInputView value={email} onChangeText={setEmail} />
+          <Text variant="caption">Phone Number</Text>
+          <TextInputView value={phone} onChangeText={setPhone} />
         </Spacer>
       </Container>
       <Footer>
-        <ButtonPrimary onPress={handlePasswordReset}>
+        <ButtonPrimary onPress={signIn}>
           <Text variant="buttonText">Submit</Text>
         </ButtonPrimary>
       </Footer>

@@ -16,9 +16,7 @@ import {
   InputContainer,
   LabelText,
 } from "../../auth/components/addProfile.style";
-import { NewsContext } from "../../../services/news/news.context";
 import { Pressable } from "react-native";
-import firebase from "firebase/compat";
 
 const Row = styled.View`
   width: 100%;
@@ -28,7 +26,6 @@ const Row = styled.View`
 `;
 
 export const EditProfileScreen = ({ navigation }) => {
-  const { infoUser, setInfoUser } = useContext(NewsContext);
   const [avatar, setAvatar] = useState(infoUser.avatar);
   const [username, setUsername] = useState(infoUser.username);
   const [fullname, setFullname] = useState(infoUser.fullname);
@@ -36,27 +33,6 @@ export const EditProfileScreen = ({ navigation }) => {
   const [address, setAddress] = useState(infoUser.address);
 
   const handleEditProfile = () => {
-    setInfoUser({
-      ...infoUser,
-      avatar: avatar,
-      username: username,
-      fullname: fullname,
-      phone: phone,
-      address: address,
-    });
-
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(firebase.auth().currentUser.uid)
-      .update({
-        avatar: avatar,
-        username: username,
-        fullname: fullname,
-        phone: phone,
-        address: address,
-      });
-
     navigation.goBack();
   };
 
@@ -82,7 +58,7 @@ export const EditProfileScreen = ({ navigation }) => {
               <AddImageContainer>
                 <ImageView
                   source={{
-                    uri: avatar,
+                    uri: "https://images.unsplash.com/photo-1677013417649-eee3690e56e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
                   }}
                 />
                 <CameraIcon width={30} height={30} xml={camera} />

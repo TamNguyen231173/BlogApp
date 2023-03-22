@@ -5,8 +5,8 @@ import { Text } from "../../../components/typography/text.component";
 import { Row } from "../../../components/utility/row.component";
 import { TopicItem } from "../../../components/utility/topic-item.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
-import { NewsContext } from "../../../services/news/news.context";
 import { ListNewsTrending } from "../../news/components/listNewsTrending.component";
+import { useGetAllPostsQuery } from "../../../redux/api";
 
 const Container = styled(SafeArea)`
   padding: ${(props) => props.theme.space[3]};
@@ -18,7 +18,7 @@ const ListNewsTrendingView = styled(ListNewsTrending)`
 `;
 
 export const ExploreScreen = () => {
-  const { isLoading, error, news } = useContext(NewsContext);
+  const { data: news, isLoading } = useGetAllPostsQuery();
   return (
     <Container>
       <Spacer position="bottom" size="medium">
@@ -30,6 +30,8 @@ export const ExploreScreen = () => {
           <Text variant="caption">See all</Text>
         </Row>
       </Spacer>
+      <TopicItem />
+      <TopicItem />
       <TopicItem />
       <Spacer position="top" size="large">
         <Row>

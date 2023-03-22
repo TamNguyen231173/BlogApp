@@ -6,7 +6,6 @@ import settings from "../../../../assets/settings";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { ButtonPrimary } from "../../../components/utility/button-primary.component";
 import { TabsView } from "../../../components/utility/tabsView.component";
-import { NewsContext } from "../../../services/news/news.context";
 import {
   Container,
   Header,
@@ -21,12 +20,14 @@ import {
 import { SvgXml } from "react-native-svg";
 import add from "../../../../assets/add";
 import { Pressable } from "react-native";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../../redux/selector";
 
 const tabs = ["news", "recent"];
 
 export const ProfileScreen = ({ navigation }) => {
-  const { infoUser } = useContext(NewsContext);
-
+  const infoUser = useSelector(userSelector);
+  console.log("info: ", infoUser);
   return (
     <SafeArea>
       <Container>
@@ -38,7 +39,11 @@ export const ProfileScreen = ({ navigation }) => {
           </Pressable>
         </Header>
         <Row>
-          <Avatar source={{ uri: infoUser.avatar }} />
+          <Avatar
+            source={{
+              uri: "https://images.unsplash.com/photo-1677013417649-eee3690e56e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+            }}
+          />
           <Row style={{ width: "65%" }}>
             <FollowContainer>
               <Text variant="amount">2156</Text>
@@ -55,8 +60,8 @@ export const ProfileScreen = ({ navigation }) => {
           </Row>
         </Row>
         <Spacer position="top" size="medium">
-          <Text variant="amount">{infoUser.fullname}</Text>
-          <Text variant="body">{infoUser.address}</Text>
+          <Text variant="amount">{infoUser.name}</Text>
+          <Text variant="body">{infoUser.email}</Text>
         </Spacer>
         <Spacer position="top" size="medium">
           <Row>

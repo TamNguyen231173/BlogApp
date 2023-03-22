@@ -4,10 +4,10 @@ import styled from "styled-components/native";
 import { Text } from "../../../components/typography/text.component";
 import IonsIcon from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
-import { NewsContext } from "../../../services/news/news.context";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { ListNewsTrending } from "../components/listNewsTrending.component";
 import { Pressable } from "react-native";
+import { useGetAllPostsQuery } from "../../../redux/api/postService";
 
 const SafeAreaView = styled(SafeArea)`
   background-color: ${(props) => props.theme.colors.bg.primary};
@@ -25,7 +25,7 @@ const Body = styled.View`
 `;
 
 export const NewsTrending = ({ navigation }) => {
-  const { isLoading, error, news } = useContext(NewsContext);
+  const { data: news, isLoading } = useGetAllPostsQuery();
   return (
     <SafeAreaView>
       <Header>

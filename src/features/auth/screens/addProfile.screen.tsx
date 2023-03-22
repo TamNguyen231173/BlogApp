@@ -6,7 +6,6 @@ import { TextInputView } from "../../../components/utility/text-input.component"
 import { Text } from "../../../components/typography/text.component";
 import { ButtonPrimary } from "../../../components/utility/button-primary.component";
 import { ScrollView } from "react-native";
-import firsebase from "../../../services/database/firebase";
 import * as ImagePicker from "expo-image-picker";
 import {
   Container,
@@ -21,11 +20,8 @@ import {
   Footer,
   ButtonContainer,
 } from "../components/addProfile.style";
-import firebase from "../../../services/database/firebase";
-import { NewsContext } from "../../../services/news/news.context";
 
 export const AddProfileScreen = ({ navigation }) => {
-  const { setInfoUser } = useContext(NewsContext);
   const [selectedImage, setSelectedImage] = useState(null);
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
@@ -62,41 +58,7 @@ export const AddProfileScreen = ({ navigation }) => {
   };
 
   const handleAddProfile = () => {
-    const user = firsebase.auth().currentUser;
-    const uid = user.uid;
 
-    const storageRef = firebase.storage().ref();
-    const imageRef = storageRef.child(`images/${uid}/`);
-    imageRef
-      .put(selectedImage, { contentType: "image/jpeg" })
-      .then(() => {
-        imageRef.getDownloadURL().then((url) => {
-          firsebase
-            .firestore()
-            .collection("users")
-            .doc(uid)
-            .set({
-              username: username,
-              fullname: fullname,
-              address: address,
-              phone: phone,
-              avatar: url,
-            })
-            .then((res) => {
-              setInfoUser({
-                username: res.username,
-                fullname: res.fullname,
-                address: res.address,
-                phone: res.phone,
-                avatar: res.url,
-              });
-              navigation.navigate("Main");
-            });
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
   return (
     <SafeArea>

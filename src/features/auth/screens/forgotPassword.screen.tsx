@@ -43,7 +43,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
     if (value === "email") {
       navigation.navigate("EmailVia");
     } else {
-      // send sms
+      navigation.navigate("PhoneVia");
     }
   };
 

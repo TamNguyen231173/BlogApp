@@ -6,7 +6,6 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Row } from "../../../components/utility/row.component";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Switch } from "react-native-paper";
-import { getAuth, signOut } from "firebase/auth";
 import { Pressable } from "react-native";
 
 const Block = styled.View``;
@@ -38,16 +37,7 @@ const SwitchView = styled(Switch)`
 export const SettingScreen = ({ navigation }) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
-  const handleLogout = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        navigation.navigate("Login");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const handleLogout = () => {};
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (
