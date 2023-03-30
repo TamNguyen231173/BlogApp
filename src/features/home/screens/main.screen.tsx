@@ -36,10 +36,8 @@ export const MainScreen = () => {
   return (
     <Tab.Navigator
       screenOptions={createScreenOptions}
-      tabBarOptions={{
-        activeTintColor: "#1877F2",
-        inactiveTintColor: "gray",
-      }}
+      tabBarActiveTintColor="#1877F2"
+      tabBarInactiveTintColor="gray"
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Explore" component={ExploreScreen} />

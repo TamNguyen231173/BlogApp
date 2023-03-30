@@ -26,24 +26,25 @@ const CardImage = styled.Image`
 `;
 
 const Button = styled(ButtonPrimary)`
-  width: 25%;
+  width: 100px;
+  padding: 5px 13px;
 `;
 
 export const TopicItem = ({ item = {} }) => {
   const {
     image = "https://images.unsplash.com/photo-1676791867988-d746dfc3b011?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80",
-    categoryName = "Category Name",
-    desc = "It is a long established fact that a reader will be distracted",
+    name = "Category Name",
   } = item;
+
   return (
     <Container>
       <Row>
         <CardImage source={{ uri: image }} />
         <Spacer position="left" size="small">
           <Col>
-            <Text variant="textBodyBlack">{categoryName}</Text>
+            <Text variant="textBodyBlack">{name}</Text>
             <Text numberOfLines={2} ellipsizeMode="tail" variant="caption">
-              {desc}
+              Lorem Ipsum is simply dummy text of the printing and typesetting.
             </Text>
           </Col>
         </Spacer>

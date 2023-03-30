@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+ import React, { useContext } from "react";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import styled from "styled-components/native";
 import { Text } from "../../../components/typography/text.component";
@@ -21,11 +21,10 @@ const Header = styled.View`
 `;
 
 const Body = styled.View`
-  flex: 1;
 `;
 
 export const NewsTrending = ({ navigation }) => {
-  const { data: news, isLoading } = useGetAllPostsQuery();
+  const { data: news, isLoading } = useGetAllPostsQuery(1);
   return (
     <SafeAreaView>
       <Header>
@@ -35,13 +34,11 @@ export const NewsTrending = ({ navigation }) => {
         <Text variant="label">Trending</Text>
         <IonsIcon name="ellipsis-vertical-outline" size={20} />
       </Header>
-      <ScrollView>
         <Spacer position="top" size="large">
           <Body>
             <ListNewsTrending news={news} />
           </Body>
         </Spacer>
-      </ScrollView>
     </SafeAreaView>
   );
 };

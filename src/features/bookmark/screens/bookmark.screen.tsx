@@ -21,7 +21,7 @@ const Container = styled(SafeArea)`
 `;
 
 export const BookmarkScreen = () => {
-  const { data: news, isLoading } = useGetAllPostsQuery();
+  const { data: news, isLoading } = useGetAllPostsQuery(1);
   return (
     <Container>
       <Text variant="TitleTab">Bookmark</Text>
@@ -39,6 +39,7 @@ export const BookmarkScreen = () => {
         <ListContainer>
           <FlatList
             data={news}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
               return (
                 <Spacer position="bottom" size="large">
@@ -46,7 +47,7 @@ export const BookmarkScreen = () => {
                 </Spacer>
               );
             }}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item._id}
           />
         </ListContainer>
       </Spacer>

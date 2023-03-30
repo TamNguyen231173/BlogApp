@@ -11,11 +11,11 @@ export const userService = createApi({
     getUser: builder.query<User, null>({
       query() {
         return {
-          url: "users/me",
+          url: "users/info/me",
           credentials: "include",
         };
       },
-      transformResponse: (result: { data: { user: User } }) => result.data.user,
+      transformResponse: (result: { user: User }) => result.user,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;

@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { ListNewsCategory } from "../../features/news/components/listNewsCategory.component";
 import { View, StyleSheet } from "react-native";
+import { useGetAllCategoriesQuery } from "../../redux/api";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -24,7 +25,18 @@ const createScreenOptions = () => {
   };
 };
 
-export const TabsView = ({ tabs }) => {
+export const TabsView = () => {
+  const { data: categories } = useGetAllCategoriesQuery();
+
+  const tabs = categories?.map((category) => ({
+    name: category.name.toLowerCase(),
+    id: category.id,
+  }));
+
+  if (!tabs) {
+    return null;
+  }
+
   return (
     <View
       style={{
@@ -34,10 +46,10 @@ export const TabsView = ({ tabs }) => {
     >
       <Tab.Navigator screenOptions={createScreenOptions}>
         {tabs &&
-          tabs.map((name) => {
+          tabs.map(({ id, name }) => {
             return (
-              <Tab.Screen key={name} name={name}>
-                {(props) => <ListNewsCategory {...props} tab={name} />}
+              <Tab.Screen key={id} name={name}>
+                {(props) => <ListNewsCategory {...props} id={id} />}
               </Tab.Screen>
             );
           })}

@@ -23,6 +23,8 @@ import fb from "../../../../assets/fb";
 import gg from "../../../../assets/gg";
 import { object, string, TypeOf } from "zod";
 import { useLoginMutation } from "../../../redux/api/authService";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../../redux/selector";
 
 const loginSchema = object({
   email: string()
@@ -69,12 +71,18 @@ export const LoginScreen = ({ navigation }) => {
       loginUser(loginData);
     }
   };
-  
+
   useEffect(() => {
     if (isSuccess) {
       navigation.navigate("Main");
     }
   }, [isSuccess]);
+
+  // Check if user already login
+  const infoUser = useSelector(userSelector);
+  if (infoUser) {
+    navigation.navigate("Main");
+  }
 
   // Footer component
   const FooterComponent = () => {

@@ -17,6 +17,8 @@ import {
   LabelText,
 } from "../../auth/components/addProfile.style";
 import { Pressable } from "react-native";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../../redux/selector";
 
 const Row = styled.View`
   width: 100%;
@@ -26,11 +28,9 @@ const Row = styled.View`
 `;
 
 export const EditProfileScreen = ({ navigation }) => {
-  const [avatar, setAvatar] = useState(infoUser.avatar);
-  const [username, setUsername] = useState(infoUser.username);
-  const [fullname, setFullname] = useState(infoUser.fullname);
-  const [phone, setPhone] = useState(infoUser.phone);
-  const [address, setAddress] = useState(infoUser.address);
+  const infoUser = useSelector(userSelector);
+  const [username, setUsername] = useState(infoUser.name);
+  const [email, setEmail] = useState(infoUser.email);
 
   const handleEditProfile = () => {
     navigation.goBack();
@@ -58,7 +58,7 @@ export const EditProfileScreen = ({ navigation }) => {
               <AddImageContainer>
                 <ImageView
                   source={{
-                    uri: "https://images.unsplash.com/photo-1677013417649-eee3690e56e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+                    uri: infoUser.avatar,
                   }}
                 />
                 <CameraIcon width={30} height={30} xml={camera} />
@@ -73,20 +73,8 @@ export const EditProfileScreen = ({ navigation }) => {
               </Spacer>
               <Spacer position="top" size="large">
                 <InputContainer>
-                  <LabelText variant="caption">Full Name</LabelText>
-                  <TextInputView value={fullname} onChangeText={setFullname} />
-                </InputContainer>
-              </Spacer>
-              <Spacer position="top" size="large">
-                <InputContainer>
-                  <LabelText variant="caption">Address</LabelText>
-                  <TextInputView value={address} onChangeText={setAddress} />
-                </InputContainer>
-              </Spacer>
-              <Spacer position="top" size="large">
-                <InputContainer>
-                  <LabelText variant="caption">Phone Number</LabelText>
-                  <TextInputView value={phone} onChangeText={setPhone} />
+                  <LabelText variant="caption">Email</LabelText>
+                  <TextInputView value={email} onChangeText={setEmail} />
                 </InputContainer>
               </Spacer>
             </FormContainer>

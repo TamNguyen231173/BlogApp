@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { SvgXml } from "react-native-svg";
+import { Image } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { ButtonPrimary } from "../../../components/utility/button-primary.component";
 
@@ -16,7 +17,7 @@ export const Header = styled.View`
   justify-content: space-between;
 `;
 
-export const Avatar = styled.Image`
+export const Avatar = styled(Image)`
   width: 100px;
   height: 100px;
   border-radius: 50px;

@@ -1,33 +1,43 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { apiBaseQuery } from "./apiService";
-import { Post } from "../types";
+import { Post, PostByCategoryRequest } from "../types";
 
 export const postApi = createApi({
   reducerPath: "postApi",
   baseQuery: apiBaseQuery,
-  tagTypes: ["Posts"],
   endpoints: (builder) => ({
-    getAllPosts: builder.query<Post[], void>({
-      query() {
+    getAllPosts: builder.query<Post[], number>({
+      query(pageNumber) {
         return {
-          url: `/posts`,
+          url: `/posts/data/${pageNumber}`,
           credentials: "include",
         };
       },
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }) => ({
-                type: "Posts" as const,
-                id,
-              })),
-              { type: "Posts", id: "LIST" },
-            ]
-          : [{ type: "Posts", id: "LIST" }],
-      transformResponse: (results: { data: { posts: Post[] } }) =>
-        results.data.posts,
+      transformResponse: (response: any) => response.posts,
+    }),
+    getPost: builder.query<Post, string>({
+      query(id) {
+        return {
+          url: `/posts/manager/${id}`,
+          credentials: "include",
+        };
+      },
+      transformResponse: (response: any) => response.data.post,
+    }),
+    getPostsByCategory: builder.query<Post[], PostByCategoryRequest>({
+      query({ categoryId, page }) {
+        return {
+          url: `/posts/getPostsByCategory/${categoryId}/${page}`,
+          credentials: "include",
+        };
+      },
+      transformResponse: (response: any) => response.posts,
     }),
   }),
 });
 
-export const { useGetAllPostsQuery } = postApi;
+export const {
+  useGetAllPostsQuery,
+  useGetPostQuery,
+  useGetPostsByCategoryQuery,
+} = postApi;

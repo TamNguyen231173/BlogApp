@@ -11,6 +11,7 @@ export const ListNewsTrending = ({ news = {} }) => {
     <View style={{ backgroundColor: "#fff" }}>
       <List
         data={news}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
             <Spacer key={item.title} position="bottom" size="large_x">

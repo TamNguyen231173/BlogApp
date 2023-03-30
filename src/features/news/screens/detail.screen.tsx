@@ -16,26 +16,26 @@ import {
   ImageBackground,
   Footer,
 } from "../components/detail.style";
+import { useGetPostQuery } from "../../../redux/api";
 
 export const DetailNews = ({ route, navigation }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const { id } = route.params;
+  const { data, isLoading } = useGetPostQuery(id);
 
-  const {
-    source = { name: "BBC News" },
-    title = "Title News",
-    author = "Author News",
-    urlToImage = "https://anhdepfree.com/wp-content/uploads/2022/11/background-2d-dep-cho-photoshop_63710488652.jpg",
-    content = "Content News",
-    publishedAt = "2021-10-10T10:10:10Z",
-  } = route.params.news;
+  if (isLoading) return null;
+
+  const { title, content, category, image, created_at, userInfo, logo } = data;
 
   return (
     <Container>
       <ScrollView>
         <Row>
-          <IonIcons name="arrow-back" size={24} />
+          <Pressable onPress={() => navigation.goBack()}>
+            <IonIcons name="arrow-back" size={24} />
+          </Pressable>
           <Row>
             <Spacer position="right" size="medium">
               <IonIcons name="share-social-outline" size={20} />
@@ -48,14 +48,14 @@ export const DetailNews = ({ route, navigation }) => {
             <ChannelContainer>
               <ImageView
                 source={{
-                  uri: urlToImage,
+                  uri: logo,
                 }}
               />
               <Spacer position="left" size="small">
                 <Column>
-                  <Text variant="label">{source.name}</Text>
+                  <Text variant="label">{userInfo.name}</Text>
                   <Text variant="timeText">
-                    <Moment time={publishedAt} />
+                    <Moment time={created_at} />
                   </Text>
                 </Column>
               </Spacer>
@@ -70,12 +70,12 @@ export const DetailNews = ({ route, navigation }) => {
         <Spacer position="top" size="medium">
           <ImageBackground
             source={{
-              uri: urlToImage,
+              uri: image,
             }}
           />
         </Spacer>
         <Spacer position="top" size="small">
-          <Text variant="caption">{author}</Text>
+          <Text variant="caption">{category.name}</Text>
         </Spacer>
         <Spacer position="top" size="tiny">
           <Text variant="title">{title}</Text>

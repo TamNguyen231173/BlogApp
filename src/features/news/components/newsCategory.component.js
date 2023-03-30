@@ -17,12 +17,13 @@ import { NavigateButton } from "../../../components/utility/navigate-button.comp
 
 export const NewsCategory = ({ news = {} }) => {
   const {
+    _id = "",
     logo = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
     image = "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/L2YBWTMIHRGDLIJUR74ZUFNFII.jpg&w=1440",
     created_at = "2023-01-30T11:02:00Z",
     title = "News Title",
-    content = "News Content",
-    author = "News Author",
+    userInfo = {},
+    category = {},
   } = news;
 
   return (
@@ -36,9 +37,9 @@ export const NewsCategory = ({ news = {} }) => {
             />
           </Spacer>
           <BodyContainer>
-            <Text variant="timeText">{author}</Text>
+            <Text variant="timeText">{category.name}</Text>
             <Spacer position="top" size="small">
-              <NavigateButton screenName={"DetailNews"} news={news}>
+              <NavigateButton screenName={"DetailNews"} id={_id}>
                 <View style={{ width: 260 }}>
                   <Text numberOfLines={2} ellipsizeMode="tail" variant="title">
                     {title}
@@ -52,7 +53,7 @@ export const NewsCategory = ({ news = {} }) => {
                   <ChannelContainer>
                     <ImageView source={{ uri: logo }} />
                     <Spacer position="left" size="tiny" />
-                    <Text variant="smallText">{author}</Text>
+                    <Text variant="smallText">{userInfo.name}</Text>
                   </ChannelContainer>
                   <Spacer position="left" size="medium" />
                   <TimeContainer>

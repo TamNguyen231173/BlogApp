@@ -1,6 +1,5 @@
 import React from "react";
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { tabs } from "../../home/screens/home.screen";
 import { TabsView } from "../../../components/utility/tabsView.component";
 import styled from "styled-components/native";
 
@@ -11,7 +10,7 @@ const Container = styled(SafeArea)`
 export const NewsCategoryScreen = () => {
   return (
     <Container>
-      <TabsView tabs={tabs} />
+      <TabsView />
     </Container>
   );
 };

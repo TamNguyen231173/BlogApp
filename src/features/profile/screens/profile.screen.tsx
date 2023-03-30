@@ -27,7 +27,13 @@ const tabs = ["news", "recent"];
 
 export const ProfileScreen = ({ navigation }) => {
   const infoUser = useSelector(userSelector);
-  console.log("info: ", infoUser);
+
+  if (!infoUser) {
+    return null;
+  }
+
+  console.log("avatar", infoUser.avatar);
+
   return (
     <SafeArea>
       <Container>
@@ -41,7 +47,7 @@ export const ProfileScreen = ({ navigation }) => {
         <Row>
           <Avatar
             source={{
-              uri: "https://images.unsplash.com/photo-1677013417649-eee3690e56e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+              uri: infoUser.avatar,
             }}
           />
           <Row style={{ width: "65%" }}>
@@ -60,7 +66,9 @@ export const ProfileScreen = ({ navigation }) => {
           </Row>
         </Row>
         <Spacer position="top" size="medium">
-          <Text variant="amount">{infoUser.name}</Text>
+          <Text variant="amount">
+            {infoUser.name} | {infoUser.role}
+          </Text>
           <Text variant="body">{infoUser.email}</Text>
         </Spacer>
         <Spacer position="top" size="medium">
