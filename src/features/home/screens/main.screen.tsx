@@ -1,4 +1,5 @@
 import React from "react";
+import { LogBox } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen } from "./home.screen";
 import { ExploreScreen } from "../../explore/screens/explore.screen";
@@ -33,6 +34,7 @@ const createScreenOptions = ({ route }) => {
 };
 
 export const MainScreen = () => {
+  LogBox.ignoreAllLogs();
   return (
     <Tab.Navigator
       screenOptions={createScreenOptions}

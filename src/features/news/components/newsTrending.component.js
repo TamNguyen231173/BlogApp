@@ -15,16 +15,7 @@ import { Moment } from "../../../components/utility/moment.component";
 import { NavigateButton } from "../../../components/utility/navigate-button.component";
 
 export const NewsTrending = ({ news = {} }) => {
-  const {
-    _id = "",
-    logo = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-    image = "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/L2YBWTMIHRGDLIJUR74ZUFNFII.jpg&w=1440",
-    created_at = "2023-01-30T11:02:00Z",
-    title = "News Title",
-    content = "News Content",
-    userInfo = {},
-    category = {},
-  } = news;
+  const { _id, title, image, category, userInfo, created_at } = news;
 
   return (
     <NewsCard mode="none">
