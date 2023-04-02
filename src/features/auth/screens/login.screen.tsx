@@ -43,6 +43,14 @@ export const LoginScreen = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const infoUser = useSelector(userSelector);
+
+  // Check if user already login
+  useEffect(() => {
+    if (infoUser) {
+      navigation.navigate("Main");
+    }
+  }, [infoUser]);
 
   // Login mutation
   const [loginUser, { isLoading, isError, error, isSuccess }] =
@@ -77,12 +85,6 @@ export const LoginScreen = ({ navigation }) => {
       navigation.navigate("Main");
     }
   }, [isSuccess]);
-
-  // Check if user already login
-  const infoUser = useSelector(userSelector);
-  if (infoUser) {
-    navigation.navigate("Main");
-  }
 
   // Footer component
   const FooterComponent = () => {

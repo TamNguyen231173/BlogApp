@@ -26,8 +26,8 @@ const CardImage = styled.Image`
 `;
 
 const Button = styled(ButtonPrimary)`
-  width: 100px;
-  padding: 5px 13px;
+  width: 80px;
+  height: 35px;
 `;
 
 export const TopicItem = ({ item = {} }) => {

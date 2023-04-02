@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SvgXml } from "react-native-svg";
 import logo from "../../../../assets/logo";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -17,66 +17,70 @@ import List from "../components/list.component";
 import SearchBar from "../components/searchBar.component";
 import { ActivityIndicator } from "react-native";
 import { useGetAllPostsQuery } from "../../../redux/api/postService";
+import { NewsTrendingSkeleton } from "../../../components/utility/newsSkeleton.component";
+import { ScrollView } from "react-native-gesture-handler";
 
 export const HomeScreen = ({ navigation }) => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  const { data, isLoading } = useGetAllPostsQuery(1);
-
-  if (isLoading) return null;
+  const { data, isFetching } = useGetAllPostsQuery(1);
 
   return (
     <SafeArea>
-      <Container>
-        <Row>
-          <SvgXml width={101} height={32} xml={logo} />
-          <NotificationContainer
-            onPress={() => navigation.navigate("NotificationScreen")}
-          >
-            <SvgXml width={50} height={50} xml={notify} />
-          </NotificationContainer>
-        </Row>
-        <Spacer position="top" size="large">
-          <SearchBar
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
-            clicked={clicked}
-            setClicked={setClicked}
-          />
-          {clicked &&
-            (!data ? (
-              <ActivityIndicator size="large" />
-            ) : (
-              <List
-                searchPhrase={searchPhrase}
-                data={data}
-                setClicked={setClicked}
-              />
-            ))}
-        </Spacer>
-        <Spacer position="top" size="large">
+      <ScrollView>
+        <Container>
           <Row>
-            <Text variant="label">Trending</Text>
-            <NavigateButton screenName="NewsTrending">
-              <Text variant="caption">See all</Text>
-            </NavigateButton>
+            <SvgXml width={101} height={32} xml={logo} />
+            <NotificationContainer
+              onPress={() => navigation.navigate("NotificationScreen")}
+            >
+              <SvgXml width={50} height={50} xml={notify} />
+            </NotificationContainer>
           </Row>
-        </Spacer>
-        <Spacer position="top" size="medium">
-          {data && <NewsTrending news={data[0]} />}
-        </Spacer>
-        <Spacer position="top" size="large">
-          <Row>
-            <Text variant="label">Latest</Text>
-            <NavigateButton screenName="NewsCategory">
-              <Text variant="caption">See all</Text>
-            </NavigateButton>
-          </Row>
-          <Row>
-            <TabsView />
-          </Row>
-        </Spacer>
-      </Container>
+          <Spacer position="top" size="large">
+            <SearchBar
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              clicked={clicked}
+              setClicked={setClicked}
+            />
+            {clicked &&
+              (!data ? (
+                <ActivityIndicator size="large" />
+              ) : (
+                <List
+                  searchPhrase={searchPhrase}
+                  data={data}
+                  setClicked={setClicked}
+                />
+              ))}
+          </Spacer>
+          <Spacer position="top" size="large">
+            <Row>
+              <Text variant="label">Trending</Text>
+              <NavigateButton screenName="NewsTrending">
+                <Text variant="caption">See all</Text>
+              </NavigateButton>
+            </Row>
+          </Spacer>
+          <Spacer position="top" size="medium">
+            {(isFetching && <NewsTrendingSkeleton />) || (
+              <NewsTrending news={data[0]} />
+            )}
+          </Spacer>
+          <Spacer position="top" size="large">
+            <Row>
+              <Text variant="label">Latest</Text>
+              <NavigateButton screenName="NewsCategory">
+                <Text variant="caption">See all</Text>
+              </NavigateButton>
+            </Row>
+            <Row>
+              <TabsView />
+            </Row>
+          </Spacer>
+        </Container>
+      </ScrollView>
     </SafeArea>
   );
 };

@@ -4,37 +4,42 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 import { NewsCategory } from "./newsCategory.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
-import { ActivityIndicator } from "react-native-paper";
-import {
-  useGetPostsByCategoryQuery,
-  useGetAllCategoriesQuery,
-} from "../../../redux/api";
+import { NewsCategorySkeleton } from "../../../components/utility/newsSkeleton.component";
+import { useGetPostsByCategoryQuery } from "../../../redux/api";
 
 const List = styled(FlatList)``;
 
 export const ListNewsCategory = ({ id }) => {
   // if id is null, then it should fetch all posts
-  const { data, isLoading } = useGetPostsByCategoryQuery({
+  const { data, isFetching } = useGetPostsByCategoryQuery({
     categoryId: id,
     page: 1,
   });
 
-  if (!data) return null;
+  const LoadingContainer = () => {
+    return (
+      <View>
+        <NewsCategorySkeleton />
+        <NewsCategorySkeleton />
+      </View>
+    );
+  };
 
   return (
-    <View style={{ backgroundColor: "#fff" }}>
-      {isLoading && <ActivityIndicator size="large" />}
-      <List
-        data={data}
-        renderItem={({ item }) => {
-          return (
-            <Spacer key={item.title} position="bottom" size="large">
-              <NewsCategory news={item} />
-            </Spacer>
-          );
-        }}
-        keyExtractor={(item) => item.id}
-      />
+    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+      {(isFetching && <LoadingContainer />) || (
+        <List
+          data={data}
+          renderItem={({ item }) => {
+            return (
+              <Spacer key={item.title} position="bottom" size="large">
+                <NewsCategory news={item} />
+              </Spacer>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
+      )}
     </View>
   );
 };

@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="c7e5a536-9d4d-43c0-b49e-53ba4f99ed95" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/auth/screens/forgotPassword.screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/auth/screens/forgotPassword.screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/bookmark/screens/bookmark.screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/bookmark/screens/bookmark.screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/explore/screens/explore.screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/explore/screens/explore.screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/home/components/searchBar.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/home/components/searchBar.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/home/screens/home.screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/home/screens/home.screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/news/components/listNewsCategory.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/components/listNewsCategory.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/news/screens/create-news.screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/screens/create-news.screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/profile/screens/editProfile.screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/profile/screens/editProfile.screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/profile/screens/profile.screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/profile/screens/profile.screen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/news/news.context.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/news/news.context.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/news/news.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/news/news.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/utility/topic-item.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/utility/topic-item.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/home/screens/home.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/home/screens/home.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infrastructure/theme/colors.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/theme/colors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,15 +26,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/1/Study/Workspace/frontend/react/react_native/Nhom2_MOBLV2/android"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/1/Study/Workspace/frontend/react/react_native/NewsApp&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
