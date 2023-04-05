@@ -30,6 +30,12 @@ const createScreenOptions = ({ route }) => {
 
       return <Ionicons name={iconName} size={size} color={color} />;
     },
+    tabBarStyle: {
+      elevation: 2,
+      backgroundColor: "#fff",
+      borderTopLeftRadius: 40,
+      borderTopRightRadius: 40,
+    },
   };
 };
 
@@ -40,6 +46,10 @@ export const MainScreen = () => {
       screenOptions={createScreenOptions}
       tabBarActiveTintColor="#1877F2"
       tabBarInactiveTintColor="gray"
+      tabBarOptions={{
+        keyboardHidesTabBar: true,
+        showLabel: false,
+      }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Explore" component={ExploreScreen} />

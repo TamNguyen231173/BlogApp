@@ -19,11 +19,15 @@ const Header = styled.View`
 
 const Block = styled.View``;
 
-export const CommentScreen = () => {
+export const CommentScreen = ({ navigation }) => {
   return (
     <Container>
       <Header>
-        <IonIcons name="arrow-back" size={24} />
+        <IonIcons
+          name="arrow-back"
+          size={24}
+          onPress={() => navigation.goBack()}
+        />
         <Text variant="textBodyBlack">Comments</Text>
         <Block />
       </Header>

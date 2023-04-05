@@ -31,7 +31,7 @@ export const DetailNews = ({ route, navigation }) => {
 
   return (
     <Container>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Row>
           <Pressable onPress={() => navigation.goBack()}>
             <IonIcons name="arrow-back" size={24} />
@@ -48,7 +48,7 @@ export const DetailNews = ({ route, navigation }) => {
             <ChannelContainer>
               <ImageView
                 source={{
-                  uri: logo,
+                  uri: userInfo.avatar,
                 }}
               />
               <Spacer position="left" size="small">

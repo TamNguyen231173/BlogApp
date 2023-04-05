@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ToastAndroid, Pressable, Keyboard, ScrollView } from "react-native";
 import styled from "styled-components/native";
+import { ToggleButton } from "react-native-paper";
+import { SvgXml } from "react-native-svg";
+import { Picker } from "@react-native-picker/picker";
+
 import { Text } from "../../../components/typography/text.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import IonsIcon from "react-native-vector-icons/Ionicons";
-import { Pressable } from "react-native";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { TextInputView } from "../../../components/utility/text-input.component";
-import { ToggleButton } from "react-native-paper";
-import { ScrollView } from "react-native-gesture-handler";
-import { SvgXml } from "react-native-svg";
 import imageIcon from "../../../../assets/imageIcon";
 import caplize from "../../../../assets/caplize";
 import more from "../../../../assets/more";
@@ -18,7 +19,19 @@ import { ButtonDisabled } from "../../../components/utility/button-disabled.comp
 import * as ImagePicker from "expo-image-picker";
 import { ButtonPrimary } from "../../../components/utility/button-primary.component";
 
+import {
+  useGetAllCategoriesQuery,
+  useCreatePostMutation,
+} from "../../../redux/api";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../../redux/selector";
+import { CreatePostRequest } from "../../../redux/types";
+
+import { uploadImageToStorage } from "../../../FirebaseService";
+import { getFilename } from "../../../utils/helper";
+
 const Container = styled(SafeArea)`
+  flex: 1;
   padding: ${(props) => props.theme.space[4]};
 `;
 
@@ -84,66 +97,88 @@ const FormatTextContainer = styled(ToggleButton.Row)`
   border-width: 0px;
 `;
 
+const FormContainer = styled.View``;
+
 export const CreateNewsScreen = ({ navigation }) => {
-  const [value, setValue] = React.useState("left");
-  const [selectedImage, setSelectedImage] = useState(null);
+  // State
+  const [value, setValue] = useState("left");
+  const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
-  const [article, setArticle] = useState("");
-
-
-  const pickImageAsync = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
-    } else {
-      alert("You did not select any image.");
-    }
+  const [category, setCategory] = useState(null);
+  const [content, setContent] = useState("");
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [footerVisible, setFooterVisible] = useState(true);
+  // redux state
+  const [createPost, { isLoading, isSuccess, error, isError }] =
+    useCreatePostMutation();
+  const { data: categories } = useGetAllCategoriesQuery();
+  const user = useSelector(userSelector);
+  const userInfo = {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    avatar: user.avatar,
   };
 
-  return (
-    <Container>
-      <ScrollView>
-        <Header>
-          <Pressable onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back-outline" />
-          </Pressable>
-          <Text variant="textBodyBlack">Create News</Text>
-          <Icon name="ellipsis-vertical-outline" />
-        </Header>
-        <Spacer position="top" size="medium">
-          <Pressable onPress={pickImageAsync}>
-            <ContainerAddImage>
-              {selectedImage && <Image source={{ uri: selectedImage }} />}
-              <Icon name="add-outline" size={30} />
-              <Text variant="textBodyBlack">Add Cover Photo</Text>
-            </ContainerAddImage>
-          </Pressable>
-        </Spacer>
-        <Spacer position="top" size="medium">
-          <InputContainer
-            value={title}
-            onChangeText={setTitle}
-            placeholder="News title"
-            placeholderTextColor="#A0A3BD"
-            style={{ paddingHorizontal: 0 }}
-          />
-        </Spacer>
-        <Spacer position="top" size="medium">
-          <InputContainer
-            value={article}
-            onChangeText={setArticle}
-            placeholder="Add News/Article"
-            placeholderTextColor="#A0A3BD"
-            style={{ paddingHorizontal: 0, fontSize: 16 }}
-            multiline={true}
-            numberOfLines={4}
-          />
-        </Spacer>
-      </ScrollView>
+  // Check if all input is filled
+  useEffect(() => {
+    if (title && content && category && image) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  }, [title, content, image]);
+
+  // Set form data
+  const submitHandler = () => {
+    uploadImageToStorage("posts/", image).then((url) => {
+      const formData: CreatePostRequest = {
+        title,
+        content,
+        category: {
+          _id: category._id,
+          name: category.name,
+        },
+        image: url,
+        userInfo,
+      };
+      createPost(formData);
+    });
+  };
+
+  // Reset form
+  const resetForm = () => {
+    setTitle("");
+    setContent("");
+    setCategory(null);
+    setImage(null);
+  };
+
+  // Check if create post success
+  useEffect(() => {
+    if (isSuccess) {
+      resetForm();
+      ToastAndroid.show("Create post success", ToastAndroid.SHORT);
+      navigation.goBack();
+    }
+  }, [isSuccess]);
+
+  // Header View Component
+  const HeaderView = () => {
+    return (
+      <Header>
+        <Pressable onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back-outline" />
+        </Pressable>
+        <Text variant="textBodyBlack">Create News</Text>
+        <Icon name="ellipsis-vertical-outline" />
+      </Header>
+    );
+  };
+
+  // Footer View Component
+  const FooterView = () => {
+    return (
       <Footer>
         <FormatTextContainer
           onValueChange={(value) => setValue(value)}
@@ -161,8 +196,8 @@ export const CreateNewsScreen = ({ navigation }) => {
           <SvgView xml={imageIcon} />
           <SvgView xml={more} />
         </Row>
-        {title && article && selectedImage ? (
-          <ButtonPrimaryView>
+        {!disabledButton ? (
+          <ButtonPrimaryView onPress={submitHandler}>
             <Text variant="buttonText">Publish</Text>
           </ButtonPrimaryView>
         ) : (
@@ -171,6 +206,108 @@ export const CreateNewsScreen = ({ navigation }) => {
           </Button>
         )}
       </Footer>
+    );
+  };
+
+  // Image Picker Component
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    } else {
+      alert("You did not select any image.");
+    }
+  };
+
+  // Image View Component
+  const ImageView = () => {
+    return (
+      <Spacer position="top" size="medium">
+        <Pressable onPress={pickImageAsync}>
+          <ContainerAddImage>
+            {setImage && <Image source={{ uri: image }} />}
+            <Icon name="add-outline" size={30} />
+            <Text variant="textBodyBlack">Add Cover Photo</Text>
+          </ContainerAddImage>
+        </Pressable>
+      </Spacer>
+    );
+  };
+
+  // Keyboard Avoiding View Component
+  const _keyboardDidShow = () => {
+    {
+      setFooterVisible(false);
+    }
+  };
+
+  const _keyboardDidHide = () => {
+    {
+      setFooterVisible(true);
+    }
+  };
+
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    return () => {
+      Keyboard.removeAllListeners("keyboardDidShow");
+    };
+  }, [footerVisible]);
+
+  return (
+    <Container>
+      <ScrollView>
+        <HeaderView />
+
+        {/* Form section */}
+        <FormContainer>
+          {/* Image section */}
+          <ImageView />
+
+          {/* Text input title */}
+          <Spacer position="top" size="medium">
+            <InputContainer
+              label="Title"
+              value={title}
+              onChangeText={setTitle}
+            />
+          </Spacer>
+
+          {/* Text input content */}
+          <Spacer position="top" size="medium">
+            <InputContainer
+              label="Content"
+              value={content}
+              onChangeText={setContent}
+            />
+          </Spacer>
+
+          {/* Picker section */}
+          <Spacer position="top" size="medium">
+            <Picker
+              selectedValue={category}
+              onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+            >
+              {categories?.map((category) => {
+                return (
+                  <Picker.Item
+                    key={category._id}
+                    label={category.name}
+                    value={category}
+                  />
+                );
+              })}
+            </Picker>
+          </Spacer>
+        </FormContainer>
+      </ScrollView>
+      {footerVisible && <FooterView />}
     </Container>
   );
 };

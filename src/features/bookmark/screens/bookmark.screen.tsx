@@ -9,8 +9,6 @@ import {
 import IonIcons from "react-native-vector-icons/Ionicons";
 import styled from "styled-components/native";
 import { FlatList } from "react-native";
-import { NewsCategory } from "../../news/components/newsCategory.component";
-import { useGetAllPostsQuery } from "../../../redux/api";
 
 const ListContainer = styled.View`
   background-color: #fff;
@@ -21,7 +19,6 @@ const Container = styled(SafeArea)`
 `;
 
 export const BookmarkScreen = () => {
-  const { data: news, isLoading } = useGetAllPostsQuery(1);
   return (
     <Container>
       <Text variant="TitleTab">Bookmark</Text>
@@ -35,9 +32,10 @@ export const BookmarkScreen = () => {
           <IonIcons name="options-outline" size={20} />
         </SearchContainer>
       </Spacer>
+  
       <Spacer position="top" size="large">
         <ListContainer>
-          <FlatList
+          {/* <FlatList
             data={news}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
@@ -48,7 +46,7 @@ export const BookmarkScreen = () => {
               );
             }}
             keyExtractor={(item) => item._id}
-          />
+          /> */}
         </ListContainer>
       </Spacer>
     </Container>

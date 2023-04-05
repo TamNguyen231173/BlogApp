@@ -15,12 +15,11 @@ export interface GenericResponse {
   message: string;
 }
 
-export interface Post {
-  _id: string;
+export interface CreatePostRequest {
   title: string;
   content: string;
   image: string;
-  logo: string;
+  logo?: string;
   category: {
     _id: string;
     name: string;
@@ -30,9 +29,26 @@ export interface Post {
     _id: string;
     name: string;
     email: string;
-    role: string;
     avatar: string;
-    created_at: string;
+  };
+}
+
+export interface Post {
+  _id: string;
+  title: string;
+  content: string;
+  image: string;
+  logo?: string;
+  category: {
+    _id: string;
+    name: string;
+  };
+  images?: string[];
+  userInfo: {
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
   };
   created_at: string;
 }

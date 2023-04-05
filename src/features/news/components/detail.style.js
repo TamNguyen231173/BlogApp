@@ -36,7 +36,7 @@ export const LikeCommentContainer = styled.View`
 export const ButtonContainer = styled.View``;
 
 export const ButtonView = styled(ButtonPrimary)`
-  padding: ${(props) => props.theme.space[1]} ${(props) => props.theme.space[2]};
+  height: 40px;
 `;
 
 export const ImageBackground = styled.Image`
@@ -46,9 +46,8 @@ export const ImageBackground = styled.Image`
 `;
 
 export const Footer = styled.View`
-  flex: 1;
   justify-content: flex-end;
   width: 100%;
   margin-top: ${(props) => props.theme.space[4]};
-  padding: 20px 0px;
+  padding: 10px 0px;
 `;

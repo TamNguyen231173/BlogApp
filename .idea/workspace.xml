@@ -6,11 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c7e5a536-9d4d-43c0-b49e-53ba4f99ed95" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/utility/topic-item.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/utility/topic-item.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/bookmark/screens/bookmark.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/bookmark/screens/bookmark.screen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/home/screens/home.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/home/screens/home.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infrastructure/theme/colors.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/theme/colors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/news/components/detail.style.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/components/detail.style.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/news/screens/comment.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/screens/comment.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/news/screens/create-news.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/screens/create-news.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/news/screens/detail.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/screens/detail.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/profile/screens/profile.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/profile/screens/profile.screen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

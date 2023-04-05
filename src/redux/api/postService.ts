@@ -1,11 +1,29 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { apiBaseQuery } from "./apiService";
-import { Post, PostByCategoryRequest } from "../types";
+import {
+  CreatePostRequest,
+  GenericResponse,
+  Post,
+  PostByCategoryRequest,
+} from "../types";
 
 export const postApi = createApi({
   reducerPath: "postApi",
   baseQuery: apiBaseQuery,
+  tagTypes: ["Posts"],
   endpoints: (builder) => ({
+    createPost: builder.mutation<GenericResponse, CreatePostRequest>({
+      query(formData) {
+        return {
+          url: "/posts/data/1",
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        };
+      },
+      invalidatesTags: [{ type: "Posts", id: "LIST" }],
+      transformResponse: (response: any) => response.data,
+    }),
     getAllPosts: builder.query<Post[], number>({
       query(pageNumber) {
         return {
@@ -13,6 +31,16 @@ export const postApi = createApi({
           credentials: "include",
         };
       },
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ _id }) => ({
+                type: "Posts" as const,
+                _id,
+              })),
+              { type: "Posts", id: "LIST" },
+            ]
+          : [{ type: "Posts", id: "LIST" }],
       transformResponse: (response: any) => response.posts,
     }),
     getPost: builder.query<Post, string>({
@@ -40,4 +68,5 @@ export const {
   useGetAllPostsQuery,
   useGetPostQuery,
   useGetPostsByCategoryQuery,
+  useCreatePostMutation,
 } = postApi;

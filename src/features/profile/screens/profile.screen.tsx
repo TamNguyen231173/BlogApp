@@ -89,7 +89,7 @@ export const ProfileScreen = ({ navigation }) => {
         </Spacer>
         <Spacer position="top" size="medium">
           <Row>
-            <TabsView />
+           
           </Row>
         </Spacer>
         <AddButton onPress={() => navigation.navigate("CreateNews")}>
