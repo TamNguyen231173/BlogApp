@@ -30,6 +30,7 @@ import {
   ForgotPasswordScreen,
   EmailViaScreen,
   PhoneViaScreen,
+  EditPost,
 } from "./src/features";
 
 import { Provider } from "react-redux";
@@ -97,6 +98,8 @@ export default function App() {
               />
               <Stack.Screen name="EmailVia" component={EmailViaScreen} />
               <Stack.Screen name="PhoneVia" component={PhoneViaScreen} />
+
+              <Stack.Screen name="UpdatePost" component={EditPost} />
             </Stack.Navigator>
           </NavigationContainer>
         </ThemeProvider>

@@ -31,10 +31,20 @@ const createScreenOptions = ({ route }) => {
       return <Ionicons name={iconName} size={size} color={color} />;
     },
     tabBarStyle: {
-      elevation: 2,
+      shadowOffset: {
+        width: 0,
+        height: 12,
+      },
+      shadowOpacity: 0.58,
+      shadowRadius: 16.0,
+      elevation: 24,
+      borderTopLeftRadius: 21,
+      borderTopRightRadius: 21,
       backgroundColor: "#fff",
-      borderTopLeftRadius: 40,
-      borderTopRightRadius: 40,
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      zIndex: 0,
     },
   };
 };

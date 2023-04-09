@@ -1,7 +1,7 @@
-import { Pressable } from "react-native";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-export const ButtonPrimary = styled(Pressable)`
+export const ButtonPrimary = styled(TouchableOpacity)`
   width: 100%;
   height: 50px;
   align-items: center;

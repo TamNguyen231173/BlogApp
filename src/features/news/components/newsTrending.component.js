@@ -15,6 +15,7 @@ import { Moment } from "../../../components/utility/moment.component";
 import { NavigateButton } from "../../../components/utility/navigate-button.component";
 
 export const NewsTrending = ({ news = {} }) => {
+  
   const { _id, title, image, category, userInfo, created_at } = news;
 
   return (

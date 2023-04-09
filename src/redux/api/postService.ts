@@ -5,6 +5,8 @@ import {
   GenericResponse,
   Post,
   PostByCategoryRequest,
+  PostByUserRequest,
+  UpdatePostRequest,
 } from "../types";
 
 export const postApi = createApi({
@@ -31,16 +33,7 @@ export const postApi = createApi({
           credentials: "include",
         };
       },
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ _id }) => ({
-                type: "Posts" as const,
-                _id,
-              })),
-              { type: "Posts", id: "LIST" },
-            ]
-          : [{ type: "Posts", id: "LIST" }],
+      providesTags: (result) => (result ? [{ type: "Posts", id: "LIST" }] : []),
       transformResponse: (response: any) => response.posts,
     }),
     getPost: builder.query<Post, string>({
@@ -59,7 +52,41 @@ export const postApi = createApi({
           credentials: "include",
         };
       },
+      providesTags: (result) => (result ? [{ type: "Posts", id: "LIST" }] : []),
       transformResponse: (response: any) => response.posts,
+    }),
+    getPostsByUser: builder.query<Post[], PostByUserRequest>({
+      query({ userId, page }) {
+        return {
+          url: `/posts/getPostsByUser/${userId}/${page}`,
+          credentials: "include",
+        };
+      },
+      providesTags: (result) => (result ? [{ type: "Posts", id: "LIST" }] : []),
+      transformResponse: (response: any) => response.posts,
+    }),
+    deletePost: builder.mutation<GenericResponse, string>({
+      query(id) {
+        return {
+          url: `/posts/manager/${id}`,
+          method: "DELETE",
+          credentials: "include",
+        };
+      },
+      invalidatesTags: [{ type: "Posts", id: "LIST" }],
+      transformResponse: (response: any) => response,
+    }),
+    updatePost: builder.mutation<GenericResponse, UpdatePostRequest>({
+      query(formData) {
+        return {
+          url: `/posts/manager/${formData.id}`,
+          method: "PATCH",
+          credentials: "include",
+          body: formData,
+        };
+      },
+      invalidatesTags: [{ type: "Posts", id: "LIST" }],
+      transformResponse: (response: any) => response,
     }),
   }),
 });
@@ -69,4 +96,10 @@ export const {
   useGetPostQuery,
   useGetPostsByCategoryQuery,
   useCreatePostMutation,
+  useGetPostsByUserQuery,
+  useLazyGetAllPostsQuery,
+  useLazyGetPostQuery,
+  useLazyGetPostsByCategoryQuery,
+  useDeletePostMutation,
+  useUpdatePostMutation,
 } = postApi;

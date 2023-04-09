@@ -21,7 +21,7 @@ export interface CreatePostRequest {
   image: string;
   logo?: string;
   category: {
-    _id: string;
+    id: string;
     name: string;
   };
   images?: string[];
@@ -31,6 +31,18 @@ export interface CreatePostRequest {
     email: string;
     avatar: string;
   };
+}
+
+export interface UpdatePostRequest {
+  id: string;
+  title: string;
+  content: string;
+  image: string;
+  category: {
+    id: string;
+    name: string;
+  };
+  images?: string[];
 }
 
 export interface Post {
@@ -61,5 +73,10 @@ export interface Category {
 
 export interface PostByCategoryRequest {
   categoryId: string;
+  page: number;
+}
+
+export interface PostByUserRequest {
+  userId: string;
   page: number;
 }

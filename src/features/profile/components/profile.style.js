@@ -46,7 +46,7 @@ export const FollowContainer = styled.View`
 
 export const AddButton = styled(ButtonPrimary)`
   position: absolute;
-  bottom: 12px;
+  bottom: 60px;
   right: 24px;
   width: 54px;
   height: 54px;

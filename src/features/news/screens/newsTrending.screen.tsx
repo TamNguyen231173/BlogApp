@@ -1,13 +1,11 @@
- import React, { useContext } from "react";
+import React, { useContext } from "react";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import styled from "styled-components/native";
 import { Text } from "../../../components/typography/text.component";
 import IonsIcon from "react-native-vector-icons/Ionicons";
-import { ScrollView } from "react-native-gesture-handler";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { ListNewsTrending } from "../components/listNewsTrending.component";
 import { Pressable } from "react-native";
-import { useGetAllPostsQuery } from "../../../redux/api/postService";
 
 const SafeAreaView = styled(SafeArea)`
   background-color: ${(props) => props.theme.colors.bg.primary};
@@ -20,11 +18,9 @@ const Header = styled.View`
   align-items: center;
 `;
 
-const Body = styled.View`
-`;
+const Body = styled.View``;
 
 export const NewsTrending = ({ navigation }) => {
-  const { data: news, isLoading } = useGetAllPostsQuery(1);
   return (
     <SafeAreaView>
       <Header>
@@ -34,11 +30,11 @@ export const NewsTrending = ({ navigation }) => {
         <Text variant="label">Trending</Text>
         <IonsIcon name="ellipsis-vertical-outline" size={20} />
       </Header>
-        <Spacer position="top" size="large">
-          <Body>
-            <ListNewsTrending news={news} />
-          </Body>
-        </Spacer>
+      <Spacer position="top" size="large">
+        <Body>
+          <ListNewsTrending />
+        </Body>
+      </Spacer>
     </SafeAreaView>
   );
 };

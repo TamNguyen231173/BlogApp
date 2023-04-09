@@ -6,16 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c7e5a536-9d4d-43c0-b49e-53ba4f99ed95" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/bookmark/screens/bookmark.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/bookmark/screens/bookmark.screen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/home/screens/home.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/home/screens/home.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/news/components/detail.style.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/components/detail.style.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/news/screens/comment.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/screens/comment.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/home/screens/main.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/home/screens/main.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/news/components/newsCategory.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/components/newsCategory.component.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/news/screens/create-news.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/screens/create-news.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/news/screens/detail.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/news/screens/detail.screen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/profile/components/profile.style.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/profile/components/profile.style.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/profile/screens/profile.screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/profile/screens/profile.screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/api/postService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/api/postService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,15 +29,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/1/Study/Workspace/frontend/react/react_native/NewsApp&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "C:/1/Study/Workspace/frontend/react/react_native/FService"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

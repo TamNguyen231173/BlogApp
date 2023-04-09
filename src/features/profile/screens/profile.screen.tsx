@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
-import { View } from "react-native";
+import { View, ScrollView, Dimensions } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import settings from "../../../../assets/settings";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { ButtonPrimary } from "../../../components/utility/button-primary.component";
-import { TabsView } from "../../../components/utility/tabsView.component";
 import {
   Container,
   Header,
@@ -22,8 +21,13 @@ import add from "../../../../assets/add";
 import { Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../../redux/selector";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { Recent } from "../components/recent.component";
+import { News } from "../components/news.component";
 
-const tabs = ["news", "recent"];
+const Tab = createMaterialTopTabNavigator();
+
+const heightView = Dimensions.get("window").height;
 
 export const ProfileScreen = ({ navigation }) => {
   const infoUser = useSelector(userSelector);
@@ -32,18 +36,22 @@ export const ProfileScreen = ({ navigation }) => {
     return null;
   }
 
-  console.log("avatar", infoUser.avatar);
+  const HeaderView = () => {
+    return (
+      <Header>
+        <View></View>
+        <HeaderText variant="textBodyBlack">Profile</HeaderText>
+        <Pressable onPress={() => navigation.navigate("SettingScreen")}>
+          <SvgContainer xml={settings} width={19} height={22} />
+        </Pressable>
+      </Header>
+    );
+  };
 
   return (
     <SafeArea>
       <Container>
-        <Header>
-          <View></View>
-          <HeaderText variant="textBodyBlack">Profile</HeaderText>
-          <Pressable onPress={() => navigation.navigate("SettingScreen")}>
-            <SvgContainer xml={settings} width={19} height={22} />
-          </Pressable>
-        </Header>
+        <HeaderView />
         <Row>
           <Avatar
             source={{
@@ -88,14 +96,23 @@ export const ProfileScreen = ({ navigation }) => {
           </Row>
         </Spacer>
         <Spacer position="top" size="medium">
-          <Row>
-           
-          </Row>
+          <View
+            style={{
+              height: 500,
+            }}
+          >
+            <Tab.Navigator>
+              <Tab.Screen name="News" component={News} />
+              <Tab.Screen name="Recent">
+                {() => <Recent userId={infoUser._id} />}
+              </Tab.Screen>
+            </Tab.Navigator>
+          </View>
         </Spacer>
-        <AddButton onPress={() => navigation.navigate("CreateNews")}>
-          <SvgXml xml={add} width={24} height={24} />
-        </AddButton>
       </Container>
+      <AddButton onPress={() => navigation.navigate("CreateNews")}>
+        <SvgXml xml={add} width={24} height={24} />
+      </AddButton>
     </SafeArea>
   );
 };

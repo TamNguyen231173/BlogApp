@@ -21,13 +21,10 @@ import { ButtonPrimary } from "../../../components/utility/button-primary.compon
 
 import {
   useGetAllCategoriesQuery,
-  useCreatePostMutation,
+  useGetPostQuery,
+  useUpdatePostMutation,
 } from "../../../redux/api";
-import { useSelector } from "react-redux";
-import { userSelector } from "../../../redux/selector";
-import { CreatePostRequest } from "../../../redux/types";
-
-import { uploadImageToStorage } from "../../../FirebaseService";
+import { NewsTrendingSkeleton } from "../../../components/utility/newsSkeleton.component";
 
 const Container = styled(SafeArea)`
   flex: 1;
@@ -69,6 +66,7 @@ const InputContainer = styled(TextInputView).attrs({
 
 const Footer = styled.View`
   width: 100%;
+  margin-top: 30px;
   padding-top: ${(props) => props.theme.space[3]};
   flex-direction: row;
   justify-content: space-between;
@@ -98,69 +96,39 @@ const FormatTextContainer = styled(ToggleButton.Row)`
 
 const FormContainer = styled.View``;
 
-export const CreateNewsScreen = ({ navigation }) => {
+export const EditPost = ({ navigation, route = {} }) => {
   // State
-  const [value, setValue] = useState("left");
-  const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState(null);
+  const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
-  const [disabledButton, setDisabledButton] = useState(true);
+  const [value, setValue] = useState("left");
   const [footerVisible, setFooterVisible] = useState(true);
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [post, setPost] = useState(null);
+  const [category, setCategory] = useState(null);
   // redux state
-  const [createPost, { isLoading, isSuccess, error, isError }] =
-    useCreatePostMutation();
+  const { data: postDetail, isFetching } = useGetPostQuery(route?.params.id);
+  // const [updatePost] = useUpdatePostMutation();
   const { data: categories } = useGetAllCategoriesQuery();
-  const user = useSelector(userSelector);
-  const userInfo = {
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    avatar: user.avatar,
-  };
+  const [updatePost] = useUpdatePostMutation();
 
-  // Check if all input is filled
   useEffect(() => {
-    if (title && content && image) {
+    if (postDetail) {
+      setTitle(postDetail.title);
+      setImage(postDetail.image);
+      setContent(postDetail.content);
+      setCategory(postDetail.category);
+    }
+  }, [postDetail]);
+
+  // Check if the input is empty
+  useEffect(() => {
+    if (title !== "" && content !== "") {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [title, content, image]);
-
-  // Set form data
-  const submitHandler = () => {
-    uploadImageToStorage("posts/", image).then((url) => {
-      const formData: CreatePostRequest = {
-        title,
-        content,
-        category: {
-          id: category._id,
-          name: category.name,
-        },
-        image: url,
-        userInfo,
-      };
-      createPost(formData);
-    });
-  };
-
-  // Reset form
-  const resetForm = () => {
-    setTitle("");
-    setContent("");
-    setCategory(null);
-    setImage(null);
-  };
-
-  // Check if create post success
-  useEffect(() => {
-    if (isSuccess) {
-      resetForm();
-      ToastAndroid.show("Create post success", ToastAndroid.SHORT);
-      navigation.goBack();
-    }
-  }, [isSuccess]);
+  }, [title, content]);
 
   // Header View Component
   const HeaderView = () => {
@@ -169,7 +137,7 @@ export const CreateNewsScreen = ({ navigation }) => {
         <Pressable onPress={() => navigation.goBack()}>
           <Icon name="arrow-back-outline" />
         </Pressable>
-        <Text variant="textBodyBlack">Create News</Text>
+        <Text variant="textBodyBlack">Edit News</Text>
         <Icon name="ellipsis-vertical-outline" />
       </Header>
     );
@@ -197,11 +165,11 @@ export const CreateNewsScreen = ({ navigation }) => {
         </Row>
         {!disabledButton ? (
           <ButtonPrimaryView onPress={submitHandler}>
-            <Text variant="buttonText">Publish</Text>
+            <Text variant="buttonText">Save</Text>
           </ButtonPrimaryView>
         ) : (
           <Button>
-            <Text variant="buttonDisabledText">Publish</Text>
+            <Text variant="buttonDisabledText">Save</Text>
           </Button>
         )}
       </Footer>
@@ -259,52 +227,76 @@ export const CreateNewsScreen = ({ navigation }) => {
     };
   }, [footerVisible]);
 
+  // Submit Handler
+  const submitHandler = async () => {
+    const payload = {
+      id: postDetail._id,
+      title: title,
+      content: content,
+      image: image,
+      category: category,
+    };
+    const response = await updatePost(payload);
+    if (response.error) {
+      ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
+      return;
+    } else {
+      ToastAndroid.show("Post updated successfully", ToastAndroid.SHORT);
+      navigation.goBack();
+    }
+  };
+
   return (
     <Container>
       <ScrollView>
         <HeaderView />
 
         {/* Form section */}
-        <FormContainer>
-          {/* Image section */}
-          <ImageView />
+        {isFetching ? (
+          <NewsTrendingSkeleton />
+        ) : (
+          <FormContainer>
+            {/* Image section */}
+            <ImageView />
+            {/* Text input title */}
+            <Spacer position="top" size="medium">
+              <InputContainer
+                label="Title"
+                value={title}
+                onChangeText={setTitle}
+              />
+            </Spacer>
 
-          {/* Text input title */}
-          <Spacer position="top" size="medium">
-            <InputContainer
-              label="Title"
-              value={title}
-              onChangeText={setTitle}
-            />
-          </Spacer>
+            {/* Text input content */}
+            <Spacer position="top" size="medium">
+              <InputContainer
+                numberOfLines={3}
+                multiline={true}
+                label="Content"
+                value={content}
+                onChangeText={setContent}
+              />
+            </Spacer>
 
-          {/* Text input content */}
-          <Spacer position="top" size="medium">
-            <InputContainer
-              label="Content"
-              value={content}
-              onChangeText={setContent}
-            />
-          </Spacer>
-
-          {/* Picker section */}
-          <Spacer position="top" size="medium">
-            <Picker
-              selectedValue={category}
-              onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-            >
-              {categories?.map((category) => {
-                return (
-                  <Picker.Item
-                    key={category._id}
-                    label={category.name}
-                    value={category}
-                  />
-                );
-              })}
-            </Picker>
-          </Spacer>
-        </FormContainer>
+            {/* Picker section */}
+            <Spacer position="top" size="medium">
+              <Picker
+                selectedValue={category}
+                onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+              >
+                {categories?.map((category) => {
+                  return (
+                    <Picker.Item
+                      key={category._id}
+                      label={category.name}
+                      value={category}
+                    />
+                  );
+                })}
+              </Picker>
+            </Spacer>
+          </FormContainer>
+        )}
       </ScrollView>
       {footerVisible && <FooterView />}
     </Container>

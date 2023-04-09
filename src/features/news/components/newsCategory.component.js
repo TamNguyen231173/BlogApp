@@ -1,8 +1,9 @@
-import React from "react";
+import React, { createRef } from "react";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
+import styled from "styled-components/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import {
   NewsCard,
   NewsCardCover,
@@ -14,17 +15,55 @@ import {
 } from "./newsCard.style";
 import { Moment } from "../../../components/utility/moment.component";
 import { NavigateButton } from "../../../components/utility/navigate-button.component";
+import { BottomPopup } from "../../../components/popup/bottomPopup";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../../redux/selector";
+import { useDeletePostMutation } from "../../../redux/api";
+import { useNavigation } from "@react-navigation/native";
+
+const ButtonMenu = styled.TouchableOpacity`
+  margin-top: 8px;
+`;
+
+const TextButtonMenu = styled.Text`
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+`;
 
 export const NewsCategory = ({ news = {} }) => {
-  const {
-    _id = "",
-    logo = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-    image = "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/L2YBWTMIHRGDLIJUR74ZUFNFII.jpg&w=1440",
-    created_at = "2023-01-30T11:02:00Z",
-    title = "News Title",
-    userInfo = {},
-    category = {},
-  } = news;
+  const navigation = useNavigation();
+  const user = useSelector(userSelector);
+  const { _id, image, created_at, title, userInfo, category } = news;
+  let popupRef = createRef();
+  if (!user) return null;
+  const checkUser = user._id === userInfo._id;
+  const [deletePost] = useDeletePostMutation();
+
+  // Show Popup Handler
+  const onShowPopup = () => {
+    popupRef.open();
+  };
+
+  // Hidden Popup Handler
+  const onHiddenPopup = () => {
+    popupRef.close();
+  };
+
+  // Update Post Handler
+  const updatePostHandler = () => {
+    navigation.navigate("UpdatePost", { id: _id });
+  };
+
+  // Delete Post Handler
+  const deletePostHandler = async () => {
+    const response = await deletePost(_id);
+    if (response.status === 200) {
+      console.log("response: ", "Delete Post Success");
+      ToastAndroid.show("Delete Post Success", ToastAndroid.SHORT);
+      onHiddenPopup();
+    }
+  };
 
   return (
     <Spacer position="top" size="large">
@@ -50,8 +89,9 @@ export const NewsCategory = ({ news = {} }) => {
             <Spacer position="top" size="small">
               <Row>
                 <Row>
+                  {/* Info User */}
                   <ChannelContainer>
-                    <ImageView source={{ uri: logo }} />
+                    <ImageView source={{ uri: userInfo.avatar }} />
                     <Spacer position="left" size="tiny" />
                     <Text variant="smallText">{userInfo.name}</Text>
                   </ChannelContainer>
@@ -64,7 +104,31 @@ export const NewsCategory = ({ news = {} }) => {
                     </Text>
                   </TimeContainer>
                 </Row>
-                <Ionicons name="ellipsis-horizontal-outline" size={24} />
+
+                {/* Menu */}
+                <TouchableOpacity onPress={onShowPopup}>
+                  <Ionicons name="ellipsis-horizontal-outline" size={24} />
+                </TouchableOpacity>
+
+                {/* Popup Menu */}
+
+                <BottomPopup
+                  ref={(target) => (popupRef = target)}
+                  onTouchOutside={onHiddenPopup}
+                >
+                  {checkUser && (
+                    <>
+                      <ButtonMenu>
+                        <TextButtonMenu onPress={updatePostHandler}>
+                          Edit Post
+                        </TextButtonMenu>
+                      </ButtonMenu>
+                      <ButtonMenu onPress={deletePostHandler}>
+                        <TextButtonMenu>Delete Post</TextButtonMenu>
+                      </ButtonMenu>
+                    </>
+                  )}
+                </BottomPopup>
               </Row>
             </Spacer>
           </BodyContainer>
