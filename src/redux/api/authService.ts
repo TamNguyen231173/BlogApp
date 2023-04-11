@@ -44,7 +44,29 @@ export const authService = createApi({
         };
       },
     }),
+    verifyEmail: builder.mutation<GenericResponse, string>({
+      query(verificationCode) {
+        return {
+          url: `/auth/verifyEmail/${verificationCode}`,
+          credentials: "include",
+        };
+      },
+    }),
+    resendVerificationEmail: builder.mutation<GenericResponse, string>({
+      query(email) {
+        return {
+          url: "auth/resendVerificationCode",
+          credentials: "include",
+          body: email,
+        };
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authService;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useVerifyEmailMutation,
+  useResendVerificationEmailMutation,
+} = authService;

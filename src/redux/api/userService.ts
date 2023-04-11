@@ -14,7 +14,7 @@ export const userService = createApi({
           url: "users/info/me",
           credentials: "include",
         };
-      },
+    },
       transformResponse: (result: { user: User }) => result.user,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
@@ -25,3 +25,5 @@ export const userService = createApi({
     }),
   }),
 });
+
+export const { useGetUserQuery } = userService;

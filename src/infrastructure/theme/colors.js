@@ -6,6 +6,7 @@ export const colors = {
     error: "#ED2E7E",
     success: "#00BA88",
     warning: "#F4B740",
+    optFocus: "#1877F226",
   },
   bg: {
     primary: "#FFFFFF",
@@ -22,5 +23,7 @@ export const colors = {
     button_text: "#667080",
     placeholder: "#A0A3BD",
     title_dark: "#E4E6EB",
+    error: "#ED2E7E",
+    blue: "#1877F2",
   },
 };

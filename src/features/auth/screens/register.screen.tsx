@@ -72,9 +72,9 @@ export const RegisterScreen = ({ navigation }) => {
   useEffect(() => {
     if (isSuccess) {
       ToastAndroid.show("Register success", ToastAndroid.SHORT);
-      navigation.navigate("Login");
+      navigation.navigate("VerifyEmail", { email });
     }
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
 
   return (
     <SafeArea>

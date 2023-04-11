@@ -27,8 +27,6 @@ import { News } from "../components/news.component";
 
 const Tab = createMaterialTopTabNavigator();
 
-const heightView = Dimensions.get("window").height;
-
 export const ProfileScreen = ({ navigation }) => {
   const infoUser = useSelector(userSelector);
 
