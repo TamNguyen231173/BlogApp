@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import IonIcons from "react-native-vector-icons/Ionicons";
@@ -16,7 +16,7 @@ import {
   ImageBackground,
   Footer,
 } from "../components/detail.style";
-import { useGetPostQuery } from "../../../redux/api";
+import { useGetPostQuery, useToggleBookmarkMutation } from "../../../redux/api";
 
 export const DetailNews = ({ route, navigation }) => {
   const [isFollowing, setIsFollowing] = useState(false);
@@ -24,10 +24,18 @@ export const DetailNews = ({ route, navigation }) => {
   const [bookmarked, setBookmarked] = useState(false);
   const { id } = route.params;
   const { data, isLoading } = useGetPostQuery(id);
+  const [toggleBookmark] = useToggleBookmarkMutation();
 
   if (isLoading) return null;
+  const { title, content, category, image, created_at, userInfo } = data;
 
-  const { title, content, category, image, created_at, userInfo, logo } = data;
+  // Toggle bookmark
+  const handleBookmark = async () => {
+    const response = await toggleBookmark(id);
+    if (response.data.status === "success") {
+      setBookmarked(!bookmarked);
+    }
+  };
 
   return (
     <Container>
@@ -108,7 +116,7 @@ export const DetailNews = ({ route, navigation }) => {
               </Row>
             </Pressable>
           </LikeCommentContainer>
-          <Pressable onPress={() => setBookmarked(!bookmarked)}>
+          <Pressable onPress={handleBookmark}>
             <IonIcons
               name={bookmarked ? "bookmark" : "bookmark-outline"}
               size={20}

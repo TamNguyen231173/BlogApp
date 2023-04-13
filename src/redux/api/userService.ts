@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { apiBaseQuery } from "./apiService";
-import { User } from "../types";
+import { User, GenericResponse, Post } from "../types";
 import { setUser } from "../reducers/userSlice";
 
 export const userService = createApi({
@@ -14,7 +14,7 @@ export const userService = createApi({
           url: "users/info/me",
           credentials: "include",
         };
-    },
+      },
       transformResponse: (result: { user: User }) => result.user,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
@@ -23,7 +23,34 @@ export const userService = createApi({
         } catch (error) {}
       },
     }),
+    toggleBookmark: builder.mutation<GenericResponse, string>({
+      query(postId) {
+        return {
+          url: `users/bookmarks/1`,
+          method: "POST",
+          credentials: "include",
+          body: { postId },
+        };
+      },
+      invalidatesTags: [{ type: "User", id: "BOOKMARKS" }],
+      transformResponse: (result: GenericResponse) => result,
+    }),
+    getUserBookmarks: builder.query<Post[], number>({
+      query(page) {
+        return {
+          url: `users/bookmarks/${page}`,
+          credentials: "include",
+        };
+      },
+      providesTags: (result) =>
+        result ? [{ type: "User", id: "BOOKMARKS" }] : [],
+      transformResponse: (result: { posts: Post[] }) => result.posts,
+    }),
   }),
 });
 
-export const { useGetUserQuery } = userService;
+export const {
+  useGetUserQuery,
+  useToggleBookmarkMutation,
+  useGetUserBookmarksQuery,
+} = userService;
