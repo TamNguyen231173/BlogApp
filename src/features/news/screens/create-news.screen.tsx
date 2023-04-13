@@ -26,6 +26,7 @@ import {
 import { useSelector } from "react-redux";
 import { userSelector } from "../../../redux/selector";
 import { CreatePostRequest } from "../../../redux/types";
+import ModalPopup from "../../../components/modal";
 
 import { uploadImageToStorage } from "../../../FirebaseService";
 
@@ -98,8 +99,15 @@ const FormatTextContainer = styled(ToggleButton.Row)`
 
 const FormContainer = styled.View``;
 
+export const ImageType = {
+  CAMERA: "camera",
+  GALLERY: "gallery",
+};
+
 export const CreateNewsScreen = ({ navigation }) => {
   // State
+  const [visible, setVisible] = useState(false);
+  const [statusImage, setStatusImage] = useState(null);
   const [value, setValue] = useState("left");
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
@@ -208,25 +216,66 @@ export const CreateNewsScreen = ({ navigation }) => {
     );
   };
 
+  // On open close modal
+  const onCloseModal = () => setVisible(false);
+  const onOpenModal = () => setVisible(true);
+
+  // Modal Image Picker
+  const ModalImagePicker = () => {
+    return (
+      <ModalPopup visible={visible} onClose={onCloseModal} title="Choose Image">
+        <Spacer position="top" size="medium">
+          <Pressable onPress={() => pickImageAsync(ImageType.CAMERA)}>
+            <Text>Camera</Text>
+          </Pressable>
+        </Spacer>
+        <Spacer position="top" size="medium">
+          <Pressable onPress={() => pickImageAsync(ImageType.GALLERY)}>
+            <Text>Gallery</Text>
+          </Pressable>
+        </Spacer>
+      </ModalPopup>
+    );
+  };
+
   // Image Picker Component
-  const pickImageAsync = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
+  const pickImageAsync = async (type: string) => {
+    let result = null;
+    if (type === ImageType.CAMERA) {
+      result = await pickImageFromCamera();
+    } else if (type === ImageType.GALLERY) {
+      result = await pickImageFromGallery();
+    } 
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      onCloseModal();
     } else {
       alert("You did not select any image.");
     }
+  };
+
+  // Pick Image From Camera
+  const pickImageFromCamera = async () => {
+    return await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+  };
+
+  // Pick Image From Gallery
+  const pickImageFromGallery = async () => {
+    return await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
   };
 
   // Image View Component
   const ImageView = () => {
     return (
       <Spacer position="top" size="medium">
-        <Pressable onPress={pickImageAsync}>
+        <Pressable onPress={onOpenModal}>
           <ContainerAddImage>
             {setImage && <Image source={{ uri: image }} />}
             <Icon name="add-outline" size={30} />
@@ -307,6 +356,7 @@ export const CreateNewsScreen = ({ navigation }) => {
         </FormContainer>
       </ScrollView>
       {footerVisible && <FooterView />}
+      <ModalImagePicker />
     </Container>
   );
 };
