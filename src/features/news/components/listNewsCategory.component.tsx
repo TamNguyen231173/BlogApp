@@ -16,30 +16,35 @@ export const ListNewsCategory = ({ id }) => {
     page: 1,
   });
 
-  const LoadingContainer = () => {
-    return (
-      <View>
-        <NewsCategorySkeleton />
-        <NewsCategorySkeleton />
-      </View>
-    );
-  };
-
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
-      {(isFetching && <LoadingContainer />) || (
-        <List
-          data={data}
-          renderItem={({ item }) => {
-            return (
-              <Spacer key={item.title} position="bottom" size="large">
-                <NewsCategory news={item} />
-              </Spacer>
-            );
-          }}
-          keyExtractor={(item) => item.id}
-        />
-      )}
+      <List
+        showsVerticalScrollIndicator={false}
+        data={data}
+        renderItem={({ item }) => {
+          return (
+            <Spacer key={item.title} position="bottom" size="large">
+              <NewsCategory
+                _id={item._id}
+                image={item.image}
+                created_at={item.created_at}
+                title={item.title}
+                userInfo={item.userInfo}
+                category={item.category}
+              />
+            </Spacer>
+          );
+        }}
+        keyExtractor={(item) => item.id}
+        listEmptyComponent={() => {
+          return (
+            <View>
+              <NewsCategorySkeleton />
+              <NewsCategorySkeleton />
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };

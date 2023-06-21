@@ -23,7 +23,7 @@ export const NewsTrending = ({ news = {} }) => {
       <NewsCardCover source={{ uri: image }} />
       <BodyContainer>
         <Spacer position="top" size="small">
-          <Text variant="timeText">{category.name}</Text>
+          <Text variant="timeText">{category?.name}</Text>
         </Spacer>
         <NavigateButton screenName={"DetailNews"} id={_id}>
           <Spacer position="top" size="small">
@@ -36,11 +36,11 @@ export const NewsTrending = ({ news = {} }) => {
               <ChannelContainer>
                 <ImageView
                   source={{
-                    uri: userInfo.avatar,
+                    uri: userInfo?.avatar,
                   }}
                 />
                 <Spacer position="left" size="tiny" />
-                <Text variant="smallText">{userInfo.name}</Text>
+                <Text variant="smallText">{userInfo?.name}</Text>
               </ChannelContainer>
               <Spacer position="left" size="medium" />
               <TimeContainer>

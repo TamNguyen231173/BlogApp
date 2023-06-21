@@ -1,8 +1,8 @@
 import React from "react";
-import { Text } from "../../components/typography/text.component";
+import { Text } from "../typography/text.component";
 import styled from "styled-components/native";
 import IonIcons from "react-native-vector-icons/Ionicons";
-import { Spacer } from "../../components/spacer/spacer.component";
+import { Spacer } from "../spacer/spacer.component";
 import { TextInputView } from "./text-input.component";
 import { ButtonPrimary } from "./button-primary.component";
 
@@ -57,28 +57,33 @@ const ButtonContainer = styled.View`
   width: 15%;
 `;
 
-export const CommentBox = () => {
+interface CommentBoxProps {
+  image: string;
+  name: string;
+  comment: string;
+  time: string;
+  likes: string[];
+}
+
+export const CommentBox = (props: CommentBoxProps) => {
   return (
     <Container>
       <RowFS>
         <Avatar
           source={{
-            uri: "https://images.unsplash.com/photo-1676873261959-173b91552b0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=415&q=80",
+            uri: props.image,
           }}
         />
         <Col>
-          <NameUser variant="amount">Wilson Franci</NameUser>
-          <Text variant="body">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </Text>
+          <NameUser variant="amount">{props.name}</NameUser>
+          <Text variant="body">{props.comment}</Text>
           <Row>
-            <Text>4w</Text>
+            <Text>{props.time}</Text>
             <Spacer position="right" size="medium" />
             <Row>
               <Icon name="heart-outline" size={20} color="#000" />
               <Spacer position="right" size="tiny" />
-              <Text>125 likes</Text>
+              <Text>{props.likes} likes</Text>
             </Row>
             <Spacer position="right" size="medium" />
             <Row>

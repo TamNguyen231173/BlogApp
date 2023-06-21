@@ -7,6 +7,7 @@ import {
   PostByCategoryRequest,
   PostByUserRequest,
   UpdatePostRequest,
+  Comment,
 } from "../types";
 
 export const postApi = createApi({
@@ -88,6 +89,38 @@ export const postApi = createApi({
       invalidatesTags: [{ type: "Posts", id: "LIST" }],
       transformResponse: (response: any) => response,
     }),
+    getComments: builder.query<Comment, number>({
+      query(id) {
+        return {
+          url: `/posts/comment/${id}/1`,
+          credentials: "include",
+        };
+      },
+      transformResponse: (response: any) => response.data.post,
+      providesTags: (result) =>
+        result ? [{ type: "Posts", id: "COMMENT" }] : [],
+    }),
+    postComment: builder.mutation<GenericResponse, any>({
+      query(formData) {
+        return {
+          url: `/posts/comment/${formData.postId}/1`,
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        };
+      },
+      invalidatesTags: [{ type: "Posts", id: "COMMENT" }],
+    }),
+    deleteComment: builder.mutation<GenericResponse, any>({
+      query(formData) {
+        return {
+          url: `/posts/comment/${formData.postId}/${formData.commentId}/1`,
+          method: "DELETE",
+          credentials: "include",
+        };
+      },
+      invalidatesTags: [{ type: "Posts", id: "COMMENT" }],
+    }),
   }),
 });
 
@@ -102,4 +135,7 @@ export const {
   useLazyGetPostsByCategoryQuery,
   useDeletePostMutation,
   useUpdatePostMutation,
+  useLazyGetCommentsQuery,
+  usePostCommentMutation,
+  useDeleteCommentMutation,
 } = postApi;

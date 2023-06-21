@@ -25,62 +25,62 @@ export const HomeScreen = ({ navigation }) => {
   const [clicked, setClicked] = useState(false);
   const { data, isFetching } = useGetAllPostsQuery(1);
 
+  if (isFetching) return <ActivityIndicator size="large" />;
+
   return (
     <SafeArea>
-      <ScrollView>
-        <Container>
+      <Container>
+        <Row>
+          <SvgXml width={101} height={32} xml={logo} />
+          <NotificationContainer
+            onPress={() => navigation.navigate("NotificationScreen")}
+          >
+            <SvgXml width={50} height={50} xml={notify} />
+          </NotificationContainer>
+        </Row>
+        <Spacer position="top" size="large">
+          <SearchBar
+            searchPhrase={searchPhrase}
+            setSearchPhrase={setSearchPhrase}
+            clicked={clicked}
+            setClicked={setClicked}
+          />
+          {clicked &&
+            (!data ? (
+              <ActivityIndicator size="large" />
+            ) : (
+              <List
+                searchPhrase={searchPhrase}
+                data={data}
+                setClicked={setClicked}
+              />
+            ))}
+        </Spacer>
+        <Spacer position="top" size="large">
           <Row>
-            <SvgXml width={101} height={32} xml={logo} />
-            <NotificationContainer
-              onPress={() => navigation.navigate("NotificationScreen")}
-            >
-              <SvgXml width={50} height={50} xml={notify} />
-            </NotificationContainer>
+            <Text variant="label">Trending</Text>
+            <NavigateButton screenName="NewsTrending">
+              <Text variant="caption">See all</Text>
+            </NavigateButton>
           </Row>
-          <Spacer position="top" size="large">
-            <SearchBar
-              searchPhrase={searchPhrase}
-              setSearchPhrase={setSearchPhrase}
-              clicked={clicked}
-              setClicked={setClicked}
-            />
-            {clicked &&
-              (!data ? (
-                <ActivityIndicator size="large" />
-              ) : (
-                <List
-                  searchPhrase={searchPhrase}
-                  data={data}
-                  setClicked={setClicked}
-                />
-              ))}
-          </Spacer>
-          <Spacer position="top" size="large">
-            <Row>
-              <Text variant="label">Trending</Text>
-              <NavigateButton screenName="NewsTrending">
-                <Text variant="caption">See all</Text>
-              </NavigateButton>
-            </Row>
-          </Spacer>
-          <Spacer position="top" size="medium">
-            {(isFetching && <NewsTrendingSkeleton />) || (
-              <NewsTrending news={data[0]} />
-            )}
-          </Spacer>
-          <Spacer position="top" size="large">
-            <Row>
-              <Text variant="label">Latest</Text>
-              <NavigateButton screenName="NewsCategory">
-                <Text variant="caption">See all</Text>
-              </NavigateButton>
-            </Row>
-            <Row>
-              <TabsView />
-            </Row>
-          </Spacer>
-        </Container>
-      </ScrollView>
+        </Spacer>
+        <Spacer position="top" size="medium">
+          {(data?.length == 0 && <NewsTrendingSkeleton />) || (
+            <NewsTrending news={data[0]} />
+          )}
+        </Spacer>
+        <Spacer position="top" size="large">
+          <Row>
+            <Text variant="label">Latest</Text>
+            <NavigateButton screenName="NewsCategory">
+              <Text variant="caption">See all</Text>
+            </NavigateButton>
+          </Row>
+          <Row>
+            <TabsView />
+          </Row>
+        </Spacer>
+      </Container>
     </SafeArea>
   );
 };

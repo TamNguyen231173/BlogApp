@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { TextProps as NativeTextProps } from 'react-native';
 
 const defaultTextStyles = (theme) => `
     font-family: ${theme.fonts.body};
@@ -112,9 +113,13 @@ const variants = {
   TitleTab,
 };
 
-export const Text = styled.Text`
-  ${({ theme }) => defaultTextStyles(theme)}
-  ${({ variant, theme }) => variants[variant](theme)}
+interface TextProps extends NativeTextProps {
+    variant?: keyof typeof variants;
+}
+
+export const Text = styled.Text<TextProps>`
+    ${({ theme }) => defaultTextStyles(theme)}
+    ${({ variant, theme }) => variants[variant](theme)}
 `;
 
 Text.defaultProps = {

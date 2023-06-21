@@ -3,7 +3,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import styled from "styled-components/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { TouchableOpacity, View } from "react-native";
+import { ToastAndroid, TouchableOpacity, View } from "react-native";
 import {
   NewsCard,
   NewsCardCover,
@@ -31,13 +31,24 @@ const TextButtonMenu = styled.Text`
   color: #000;
 `;
 
-export const NewsCategory = ({ news = {} }) => {
+interface NewsCategoryProps {
+  _id: string;
+  image: string;
+  created_at: string;
+  title: string;
+  userInfo: {
+    _id: string;
+  };
+  category: {};
+}
+
+export const NewsCategory = (props: NewsCategoryProps) => {
   const navigation = useNavigation();
   const user = useSelector(userSelector);
-  const { _id, image, created_at, title, userInfo, category } = news;
+  const { _id, image, created_at, title, userInfo, category } = props;
   let popupRef = createRef();
   if (!user) return null;
-  const checkUser = user._id === userInfo._id;
+  const checkUser = user._id === userInfo?._id;
   const [deletePost] = useDeletePostMutation();
 
   // Show Popup Handler
@@ -76,7 +87,7 @@ export const NewsCategory = ({ news = {} }) => {
             />
           </Spacer>
           <BodyContainer>
-            <Text variant="timeText">{category.name}</Text>
+            <Text variant="timeText">{category?.name}</Text>
             <Spacer position="top" size="small">
               <NavigateButton screenName={"DetailNews"} id={_id}>
                 <View style={{ width: 260 }}>
@@ -91,9 +102,9 @@ export const NewsCategory = ({ news = {} }) => {
                 <Row>
                   {/* Info User */}
                   <ChannelContainer>
-                    <ImageView source={{ uri: userInfo.avatar }} />
+                    <ImageView source={{ uri: userInfo?.avatar }} />
                     <Spacer position="left" size="tiny" />
-                    <Text variant="smallText">{userInfo.name}</Text>
+                    <Text variant="smallText">{userInfo?.name}</Text>
                   </ChannelContainer>
                   <Spacer position="left" size="medium" />
                   <TimeContainer>

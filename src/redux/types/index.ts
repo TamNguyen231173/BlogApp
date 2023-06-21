@@ -80,3 +80,15 @@ export interface PostByUserRequest {
   userId: string;
   page: number;
 }
+
+export interface Comment {
+  _id: string;
+  content: string;
+  userInfo: {
+    _id: string;
+    name: string;
+    avatar: string;
+  };
+  likes: string[];
+  created_at: string;
+}

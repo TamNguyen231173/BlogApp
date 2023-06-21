@@ -23,6 +23,9 @@ const TAB_ICON = {
 const createScreenOptions = ({ route }) => {
   return {
     headerShown: false,
+    opitons: {
+      tabBarShowLabel: false,
+    },
     tabBarIcon: ({ focused, color, size }) => {
       let iconName = focused
         ? TAB_ICON[route.name]
@@ -50,16 +53,12 @@ const createScreenOptions = ({ route }) => {
 };
 
 export const MainScreen = () => {
-  LogBox.ignoreAllLogs();
   return (
     <Tab.Navigator
       screenOptions={createScreenOptions}
       tabBarActiveTintColor="#1877F2"
       tabBarInactiveTintColor="gray"
-      tabBarOptions={{
-        keyboardHidesTabBar: true,
-        showLabel: false,
-      }}
+      initialRouteName="Home"
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Explore" component={ExploreScreen} />

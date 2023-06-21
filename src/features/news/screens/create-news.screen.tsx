@@ -245,7 +245,7 @@ export const CreateNewsScreen = ({ navigation }) => {
       result = await pickImageFromCamera();
     } else if (type === ImageType.GALLERY) {
       result = await pickImageFromGallery();
-    } 
+    }
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);

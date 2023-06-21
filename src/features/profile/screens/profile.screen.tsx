@@ -53,7 +53,7 @@ export const ProfileScreen = ({ navigation }) => {
         <Row>
           <Avatar
             source={{
-              uri: infoUser.avatar,
+              uri: infoUser?.avatar,
             }}
           />
           <Row style={{ width: "65%" }}>

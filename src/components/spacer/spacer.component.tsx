@@ -1,4 +1,6 @@
 import styled, { useTheme } from "styled-components/native";
+import { ViewProps } from "react-native";
+import React from "react";
 
 const sizeVarient = {
   tiny: 1,
@@ -25,14 +27,25 @@ const getVarient = (position, size, theme) => {
   return `${property}: ${value}`;
 };
 
-const SpacerView = styled.View`
-  ${({ varient }) => varient};
+interface SpacerProps extends ViewProps {
+  position: "top" | "left" | "right" | "bottom";
+  size:
+    | "tiny"
+    | "small"
+    | "medium"
+    | "large"
+    | "large_x"
+    | "large_xx"
+    | "large_xxx";
+}
+
+const SpacerView = styled.View<SpacerProps>`
+  ${({ position, size, theme }) => getVarient(position, size, theme)}
 `;
 
-export const Spacer = ({ position, size, children }) => {
+export const Spacer = ({ position, size }: SpacerProps) => {
   const theme = useTheme();
-  const varient = getVarient(position, size, theme);
-  return <SpacerView varient={varient}>{children}</SpacerView>;
+  return <SpacerView position={position} size={size} theme={theme} />;
 };
 
 Spacer.defaultProps = {
