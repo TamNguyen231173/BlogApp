@@ -65,7 +65,7 @@ export const HomeScreen = ({ navigation }) => {
           </Row>
         </Spacer>
         <Spacer position="top" size="medium">
-          {(data?.length == 0 && <NewsTrendingSkeleton />) || (
+          {(data && <NewsTrendingSkeleton />) || (
             <NewsTrending news={data[0]} />
           )}
         </Spacer>
