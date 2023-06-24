@@ -2,8 +2,8 @@ import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 export const ButtonPrimary = styled(TouchableOpacity)`
-  width: 100%;
-  height: 50px;
+  width: 90%;
+  height: 42px;
   align-items: center;
   justify-content: center;
   background-color: ${(props) => props.theme.colors.ui.primary};

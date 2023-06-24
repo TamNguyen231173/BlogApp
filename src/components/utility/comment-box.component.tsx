@@ -42,23 +42,9 @@ const Icon = styled(IonIcons)`
   font-size: 20px;
 `;
 
-const FooterContainer = styled.View`
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: 0 12px;
-`;
-
-const InputContainer = styled.View`
-  width: 80%;
-`;
-
-const ButtonContainer = styled.View`
-  width: 15%;
-`;
 
 interface CommentBoxProps {
-  image: string;
+  avatar: string;
   name: string;
   comment: string;
   time: string;
@@ -71,7 +57,7 @@ export const CommentBox = (props: CommentBoxProps) => {
       <RowFS>
         <Avatar
           source={{
-            uri: props.image,
+            uri: props.avatar,
           }}
         />
         <Col>
@@ -83,7 +69,7 @@ export const CommentBox = (props: CommentBoxProps) => {
             <Row>
               <Icon name="heart-outline" size={20} color="#000" />
               <Spacer position="right" size="tiny" />
-              <Text>{props.likes} likes</Text>
+              <Text>{props.likes.length} likes</Text>
             </Row>
             <Spacer position="right" size="medium" />
             <Row>
@@ -94,16 +80,7 @@ export const CommentBox = (props: CommentBoxProps) => {
           </Row>
         </Col>
       </RowFS>
-      <FooterContainer>
-        <InputContainer>
-          <TextInputView placeholder="Write a comment..." />
-        </InputContainer>
-        <ButtonContainer>
-          <ButtonPrimary>
-            <IonIcons name="send" size={20} color="#fff" />
-          </ButtonPrimary>
-        </ButtonContainer>
-      </FooterContainer>
+     
     </Container>
   );
 };

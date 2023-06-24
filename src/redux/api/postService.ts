@@ -89,14 +89,14 @@ export const postApi = createApi({
       invalidatesTags: [{ type: "Posts", id: "LIST" }],
       transformResponse: (response: any) => response,
     }),
-    getComments: builder.query<Comment, number>({
+    getComments: builder.query<Comment[], number>({
       query(id) {
         return {
           url: `/posts/comment/${id}/1`,
           credentials: "include",
         };
       },
-      transformResponse: (response: any) => response.data.post,
+      transformResponse: (response: any) => response.data,
       providesTags: (result) =>
         result ? [{ type: "Posts", id: "COMMENT" }] : [],
     }),
